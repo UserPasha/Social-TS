@@ -1,0 +1,10 @@
+.navigation{
+    grid-area: n;
+    border: black solid 1px;
+}
+.item{
+    color: #8897b0;
+}
+.item.active{
+    color: #56adad;
+}
