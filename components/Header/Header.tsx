@@ -4,7 +4,7 @@ const Header = () => {
 
             <header className={c.header}>
                 <img
-                    src="https://png.pngtree.com/png-clipart/20190604/original/pngtree-business-logo-design-png-image_915991.jpg"
+                    src="https://media.gettyimages.com/vectors/happy-family-with-children-walking-at-sunset-time-vector-id474121696"
                     alt="logo"/>
             </header>
         

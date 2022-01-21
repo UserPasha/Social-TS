@@ -2,10 +2,12 @@ import c from "./Profile.module.css"
 import Posts from "./Posts/Posts";
 const Profile = () => {
     return (
-        <div >
+        <div className={c.profileWrapper}>
+            <div className={c.bGImage}>
             <img
-                src="https://images.unsplash.com/photo-1563547257011-054b1054e185?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80"
+                src="https://www.firestock.ru/download/s/sxjw29bs05hzsxn/photodune-317366.jpg"
                 alt="background-cover"/>
+            </div>
             <div className={c.cover}>
                 ava+description
                <Posts/>

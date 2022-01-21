@@ -1,4 +1,6 @@
-
+.profileWrapper .bGImage img{
+    width: 800px;
+}
 .cover{
     margin-left: 20px;
 }
