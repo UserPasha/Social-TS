@@ -1,6 +1,14 @@
 import c from "./Profile.module.css"
 import Posts from "./Posts/Posts";
-const Profile = () => {
+
+import StateOfSoc, {PostType} from "../../Redux/stateOfSoc";
+type ProfilePropsTYpe = {
+    posts: Array<PostType>
+}
+
+const Profile = (props: ProfilePropsTYpe) => {
+
+
     return (
         <div className={c.profileWrapper}>
             <div className={c.bGImage}>
@@ -10,7 +18,7 @@ const Profile = () => {
             </div>
             <div className={c.cover}>
                 ava+description
-               <Posts/>
+                <Posts posts={StateOfSoc.profilePage.posts}/>
             </div>
 
         </div>

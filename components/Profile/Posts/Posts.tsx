@@ -1,22 +1,29 @@
 import c from "./Posts.module.css"
 import Post from "./Post/Post";
+import StateOfSoc from "../../../Redux/stateOfSoc";
+import Profile from "../Profile";
 
-const PostData = [
-    {title: "Hello!", likes: 10},
-    {title: "This is my first post", likes: 15},
-]
-const PostDataItem = PostData.map(el =>  <Post title={el.title} likes = {el.likes}/>)
+type PostType={
+    id: number
+    title: string
+    likes: number
+    src: string
+}
+type PostTypeProps = {
+    posts: Array<PostType>
+}
 
-const Posts = () => {
+const Posts = (props: PostTypeProps) => {
+    let postsMap = StateOfSoc.profilePage.posts.map(el =>  <Post id={el.id} title={el.title} likes = {el.likes} src={el.src}/>)
     return (
         <div>
 
             Posts:
-            {PostDataItem}
-            {/*<Post title={"Hello!"} likes = {10}/>
-            <Post title={"This is my first post"} likes = {15}/>*/}
+            {postsMap}
+
 
         </div>
     );
 };
 export default Posts;
+

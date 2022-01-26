@@ -1,13 +1,18 @@
 import c from "./Post.module.css"
-type PostTypeProps = {
+import StateOfSoc from "../../../../Redux/stateOfSoc";
+type PostType={
+    id: number
     title: string
     likes: number
+    src: string
 }
-const Post = (props: PostTypeProps) => {
+
+const Post = (props: PostType) => {
+
     return (
         <div className={c.item}>
             <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
+                src={props.src}
                 alt="avatar"/>
             {props.title}
             <div>
