@@ -12,7 +12,7 @@ type DialogPageType = {
 
 
 const Messages = (props: DialogPageType) => {
-    let dialUsers = StateOfSoc.dialogsPage.dialogs.map(d =>  <DialogUsers name={d.name} id={d.id}/> )
+    let dialUsers = StateOfSoc.dialogsPage.dialogs.map(d =>  <DialogUsers name={d.name} id={d.id} img={d.img}/> )
     let mesUsers = StateOfSoc.dialogsPage.messages.map(m =>  <MessagesFromUsers text={m.text} id={m.id}/>)
     return (
         <div className={c.messageWrapper}>

@@ -4,14 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, NavLink} from "react-router-dom";
-import StateOfSoc from './Redux/stateOfSoc'
+import stateOfSoc from "./Redux/stateOfSoc";
 
 
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App  profilePage={StateOfSoc.profilePage} dialogsPage={StateOfSoc.dialogsPage}/>
+            <App  state={stateOfSoc}/>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')

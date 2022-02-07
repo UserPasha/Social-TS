@@ -1,0 +1,14 @@
+
+.wrapper{
+    height: 80px;
+    width: 200px;
+    border: 1px solid rgb(106, 78, 49);
+    border-radius: 20px;
+    margin-left: 20px;
+}
+.wrapper:nth-child(even){
+    margin-left: 500px;
+}
+.wrapper p{
+    text-align: center;
+}

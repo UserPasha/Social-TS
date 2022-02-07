@@ -12,14 +12,16 @@ import {Routes, Route} from "react-router-dom";
 import StateOfSoc, {RootStateType, ProfilePageType}  from './Redux/stateOfSoc'
 
 //import Post, {PostTypeProps} from "./components/Profile/Posts/Post/Post";
+type stateType = {
+    state: RootStateType
+}
 
-
-function App(props: RootStateType) {
+function App(props: stateType) {
    // let posItems =  StateOfSoc.profilePage
 
    // let dialogPage = props.StateOfSoc.dialogsPage StateOfSoc.dialogsPage.dialogs
 
-
+    /*profilePage={StateOfSoc.profilePage} dialogsPage={StateOfSoc.dialogsPage}*/
     return (
         <div className={"appWrapper"}>
             <Header/>

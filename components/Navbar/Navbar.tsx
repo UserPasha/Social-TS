@@ -19,6 +19,7 @@ const Navbar = () => {
             <div className={c.item}>
                 <NavLink to={"/settings"} className={navData => navData.isActive ? c.active : c.item}>Settings</NavLink>
             </div>
+
         </nav>
     );
 };

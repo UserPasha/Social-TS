@@ -1,0 +1,17 @@
+.item span,
+.item{
+    font-weight: bold;
+    margin-left: 10px;
+    color: black;
+}
+.active span{
+    font-weight: bold;
+    margin-left: 15px;
+    color: rgb(106, 78, 49);
+}
+.item img{
+    width: 50px;
+    height: 50px;
+    border: 2px black solid;
+    border-radius: 20%;
+}
