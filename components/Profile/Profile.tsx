@@ -1,9 +1,12 @@
 import c from "./Profile.module.css"
 import Posts from "./Posts/Posts";
 
-import StateOfSoc, {PostType} from "../../Redux/stateOfSoc";
+import StateOfSoc, { PostType} from "../../Redux/stateOfSoc";
 type ProfilePropsTYpe = {
     posts: Array<PostType>
+    addPost: (postText: string)=> void
+    forNewPost:string
+    changeForNewPost: (text: string)=> void
 }
 
 const Profile = (props: ProfilePropsTYpe) => {
@@ -18,7 +21,11 @@ const Profile = (props: ProfilePropsTYpe) => {
             </div>
             <div className={c.cover}>
                 ava+description
-                <Posts posts={StateOfSoc.profilePage.posts}/>
+                <Posts posts={StateOfSoc.profilePage.posts}
+                       addPost={props.addPost}
+                       forNewPost={props.forNewPost}
+                       changeForNewPost={props.changeForNewPost}
+                />
             </div>
 
         </div>
