@@ -4,14 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import  {changeForNewMessage, changeForNewPost, RootStateType} from "./Redux/stateOfSoc";
+import store from "./Redux/stateOfSoc";
 
 
-export const renderTree = (stateOfSoc: RootStateType) => {
+export const renderTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App state={stateOfSoc} changeForNewMessage={changeForNewMessage} changeForNewPost={changeForNewPost}/>
+                <App store={store} changeForNewMessage={store.changeForNewMessage} changeForNewPost={store.changeForNewPost}/>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

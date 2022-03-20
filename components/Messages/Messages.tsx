@@ -2,7 +2,8 @@ import React, {ChangeEvent} from 'react';
 import c from "./Messages.module.css"
 import DialogUsers, {DialogsType} from "./DialogUsers/DialogUsers";
 import MessagesFromUsers, {MessageType} from "./MessagesFromUsers/MessagesFromUsers";
-import StateOfSoc from "../../Redux/stateOfSoc";
+import {ActionsTypes, addMessageAC} from "../../Redux/stateOfSoc";
+
 
 
 type DialogPageType = {
@@ -11,15 +12,17 @@ type DialogPageType = {
     addMessage: (messageText: string) => void
     forNewMessage: string
     changeForNewMessage: (text: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 
 const Messages = (props: DialogPageType) => {
-    let dialUsers = StateOfSoc.dialogsPage.dialogs.map(d => <DialogUsers name={d.name} id={d.id} img={d.img}/>)
-    let mesUsers = StateOfSoc.dialogsPage.messages.map(m => <MessagesFromUsers text={m.text} id={m.id}/>)
+    let dialUsers = props.dialogs.map(d => <DialogUsers name={d.name} id={d.id} img={d.img}/>)
+    let mesUsers = props.messages.map(m => <MessagesFromUsers text={m.text} id={m.id}/>)
 
     let addMessage = () => {
-        props.addMessage(props.forNewMessage)
+        //props.addMessage(props.forNewMessage)
+        props.dispatch(addMessageAC(props.forNewMessage))
     }
     const newMessageCallbackHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>{
         props.changeForNewMessage(e.currentTarget.value)

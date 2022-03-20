@@ -1,8 +1,7 @@
-//import c from "./Posts.module.css"
+
 import Post from "./Post/Post";
-import StateOfSoc from "../../../Redux/stateOfSoc";
-//import Profile from "../Profile";
 import React, {ChangeEvent} from "react";
+import {ActionsTypes, addPostAC} from "../../../Redux/stateOfSoc";
 
 type PostType = {
     id: number
@@ -15,14 +14,16 @@ type PostTypeProps = {
     addPost: (postText: string) => void
     forNewPost: string
     changeForNewPost: (text: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 const Posts = (props: PostTypeProps) => {
-    let postsMap = StateOfSoc.profilePage.posts.map(el => <Post id={el.id} title={el.title} likes={el.likes}
+    let postsMap = props.posts.map(el => <Post id={el.id} title={el.title} likes={el.likes}
                                                                 src={el.src}/>)
 
     let addPost = () => {
-        props.addPost(props.forNewPost)
+       // props.addPost(props.forNewPost)
+        props.dispatch(addPostAC(props.forNewPost))
     }
     const newPostCallbackHandler = (e: ChangeEvent<HTMLTextAreaElement>)=>{
             props.changeForNewPost(e.currentTarget.value)

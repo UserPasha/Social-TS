@@ -1,10 +1,14 @@
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import stateOfSoc from "./Redux/stateOfSoc";
+
 import {renderTree} from "./render";
+import store from "./Redux/stateOfSoc";
 
 
-renderTree(stateOfSoc)
+
+
+store.subscribe(renderTree)
+renderTree()
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

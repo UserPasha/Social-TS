@@ -1,3 +1,6 @@
+body{
+    background-color: rgb(233, 205, 209);
+}
 .appWrapper{
     display: grid;
     width: 1200px;
