@@ -4,7 +4,7 @@ import App from './App';
 import store from "./Redux/stateOfSoc";
 
 test('renders learn react link', () => {
-  render( <App store={store} changeForNewMessage={store.changeForNewMessage} changeForNewPost={store.changeForNewPost}/>);
+  render( <App/>);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });

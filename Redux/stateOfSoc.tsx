@@ -1,28 +1,10 @@
+import {DialogPageType, DialogsActionType, MessageType} from "./dialog-reducer";
+import {PostType, ProfileActionType, ProfilePageType} from "./profile-reducer";
 
-export type PostType = {
-    id: number
-    title: string
-    likes: number
-    src: string
-}
-export type DialogsType = {
-    name: string
-    id: number
-    img: string
-}
-export type MessageType = {
-    text: string
-    id: number
-}
-export type ProfilePageType = {
-    textForPost: string
-    posts: Array<PostType>
-}
-export type DialogPageType = {
-    textForMessages: string
-    dialogs: Array<DialogsType>
-    messages: Array<MessageType>
-}
+
+export type ActionsTypes = DialogsActionType | ProfileActionType
+
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
@@ -38,41 +20,6 @@ export type storeType = {
     subscribe: (callback: () => void) => void
     getState: () => RootStateType,
     dispatch: (action: ActionsTypes) => void
-}
-type AddPostActionType ={
-    type: "ADD-POST"
-    postText: string
-}
-type AddMessageActionType ={
-    type: "ADD-MESSAGE"
-    messageText: string
-}
-type ChangeNewMessageActionType = ReturnType<typeof changeNewMessageAC>
-
-type ChangeNewPostActionType = ReturnType<typeof changeNewPostAC>
-export type ActionsTypes =
-    AddPostActionType | AddMessageActionType |
-    ChangeNewMessageActionType|ChangeNewPostActionType
-
-export const addPostAC = (postText: string):AddPostActionType => {
-    return{
-        type: "ADD-POST", postText: postText
-    }
-}
-export const addMessageAC = (messageTest: string):AddMessageActionType => {
-    return{
-       type: "ADD-MESSAGE", messageText: messageTest
-    }
-}
-export const changeNewMessageAC = (newText: string) =>{
-    return{
-        type: "CHANGE-NEW-MESSAGE", text: newText
-    } as const
-}
-export const changeNewPostAC = (newText: string) =>{
-    return{
-        type: "CHANGE-NEW-POST", text: newText
-    } as const
 }
 
 const store: storeType = {

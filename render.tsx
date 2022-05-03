@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import store from "./Redux/stateOfSoc";
+import {Provider} from "./Redux/storeContext";
 
 
 export const renderTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={store} changeForNewMessage={store.changeForNewMessage} changeForNewPost={store.changeForNewPost}/>
+                <Provider store={store}>
+                <App />
+               </Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

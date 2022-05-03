@@ -2,8 +2,7 @@ import React, {ChangeEvent} from 'react';
 import c from "./Messages.module.css"
 import DialogUsers, {DialogsType} from "./DialogUsers/DialogUsers";
 import MessagesFromUsers, {MessageType} from "./MessagesFromUsers/MessagesFromUsers";
-import {ActionsTypes, addMessageAC} from "../../Redux/stateOfSoc";
-
+import {ActionsTypes} from "../../Redux/stateOfSoc";
 
 
 type DialogPageType = {
@@ -12,7 +11,7 @@ type DialogPageType = {
     addMessage: (messageText: string) => void
     forNewMessage: string
     changeForNewMessage: (text: string) => void
-    dispatch: (action: ActionsTypes) => void
+   // dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -21,8 +20,8 @@ const Messages = (props: DialogPageType) => {
     let mesUsers = props.messages.map(m => <MessagesFromUsers text={m.text} id={m.id}/>)
 
     let addMessage = () => {
-        //props.addMessage(props.forNewMessage)
-        props.dispatch(addMessageAC(props.forNewMessage))
+        props.addMessage(props.forNewMessage)
+
     }
     const newMessageCallbackHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>{
         props.changeForNewMessage(e.currentTarget.value)
@@ -31,7 +30,6 @@ const Messages = (props: DialogPageType) => {
         <div className={c.messageWrapper}>
             <div className={c.userDialogs}>
 
-
                 {dialUsers}
 
             </div>
@@ -39,7 +37,8 @@ const Messages = (props: DialogPageType) => {
                 {mesUsers}
                 <div>
                     <textarea value={props.forNewMessage}
-                              onChange={newMessageCallbackHandler}></textarea>
+                              onChange={newMessageCallbackHandler}
+                    />
                 </div>
                 <div>
                     <button onClick={addMessage}>ADD</button>
