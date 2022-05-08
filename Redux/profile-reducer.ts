@@ -43,23 +43,22 @@ let initialState = {
     ]
 }
 
-export const ProfileReducer = (initialState: ProfilePageType, action: ProfileActionType)=>{
+export const ProfileReducer = (state: ProfilePageType=initialState, action: ProfileActionType)=>{
     switch (action.type){
         case ADD_POST:
             let newPost = {
                 id: 3,
-                title: initialState.textForPost,
+                title: state.textForPost,
                 likes: 0,
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
             }
-            initialState.posts.push(newPost)
-            initialState.textForPost=""
-            return initialState
+            return {...state,
+                textForPost: "",
+                posts: [...state.posts, newPost]}
         case CHANGE_NEW_POST:
-            initialState.textForPost = action.text
-            return initialState
+            return{...state, textForPost: action.text}
         default:
-            return initialState
+            return state
     }
 }
 

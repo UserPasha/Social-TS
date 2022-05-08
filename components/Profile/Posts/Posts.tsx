@@ -3,7 +3,7 @@ import React, {ChangeEvent} from "react";
 import {ActionsTypes} from "../../../Redux/stateOfSoc";
 import {addPostAC} from "../../../Redux/profile-reducer";
 
-type PostType = {
+export type PostType = {
     id: number
     title: string
     likes: number
@@ -14,7 +14,6 @@ type PostTypeProps = {
     addPost: (postText: string) => void
     forNewPost: string
     changeForNewPost: (text: string) => void
-   // dispatch: (action: ActionsTypes) => void
 }
 
 const Posts = (props: PostTypeProps) => {
@@ -25,14 +24,12 @@ const Posts = (props: PostTypeProps) => {
 
     let addPost = () => {
         props.addPost(props.forNewPost)
-        // props.dispatch(addPostAC(props.forNewPost))
+
     }
     const newPostCallbackHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeForNewPost(e.currentTarget.value)
     }
-    // let addPost = () => {
-    //    props.addPost(postRef.current?.value ? postRef.current.value: "---" )
-    // }
+
     return (
         <div>
             <div>

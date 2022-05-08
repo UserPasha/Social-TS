@@ -2,7 +2,6 @@ import React, {ChangeEvent} from 'react';
 import c from "./Messages.module.css"
 import DialogUsers, {DialogsType} from "./DialogUsers/DialogUsers";
 import MessagesFromUsers, {MessageType} from "./MessagesFromUsers/MessagesFromUsers";
-import {ActionsTypes} from "../../Redux/stateOfSoc";
 
 
 type DialogPageType = {
@@ -11,7 +10,6 @@ type DialogPageType = {
     addMessage: (messageText: string) => void
     forNewMessage: string
     changeForNewMessage: (text: string) => void
-   // dispatch: (action: ActionsTypes) => void
 }
 
 

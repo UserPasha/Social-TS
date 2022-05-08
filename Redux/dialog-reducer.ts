@@ -24,6 +24,7 @@ type AddMessageActionType ={
 type ChangeNewMessageActionType = ReturnType<typeof changeNewMessageAC>
 
 export type DialogsActionType = AddMessageActionType | ChangeNewMessageActionType
+
 let initialState = {
     textForMessages: "",
     dialogs: [
@@ -67,21 +68,22 @@ let initialState = {
     ]
 }
 
-export const DialogReducer = (initialState: DialogPageType, action: DialogsActionType )=>{
+export const DialogReducer = (state=initialState, action: DialogsActionType ): DialogPageType=>{
     switch (action.type){
         case ADD_MESSAGE:
             let newMessage = {
-                text: initialState.textForMessages,
-                id: 6
+                text: state.textForMessages,
+                id: 6,
+                img: "",
+                name: 'name'
             }
-            initialState.messages.push(newMessage)
-            initialState.textForMessages = ""
-            return initialState
+            return {...state,
+            textForMessages: "",
+            dialogs: [...state.dialogs, newMessage]}
         case CHANGE_NEW_MESSAGE:
-            initialState.textForMessages = action.text
-            return initialState
+            return {...state, textForMessages: action.text}
         default:
-            return initialState
+            return state
     }
 }
 
