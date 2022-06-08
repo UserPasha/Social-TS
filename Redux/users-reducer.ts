@@ -1,4 +1,4 @@
-import { v1 } from "uuid";
+import {v1} from "uuid";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -16,6 +16,12 @@ export type UserType = {
     followed: boolean
     status: string
     location: LocationType
+    name?: string
+    photos?: PhotoType
+}
+export type PhotoType = {
+    small: string | null | undefined
+    large?: string | null | undefined
 }
 export type initialStateType = {
     users: Array<UserType>
@@ -28,11 +34,11 @@ type ActionType = followType
     | unFollowType
     | setUsersType
 
-let initialState: initialStateType =  {
+let initialState: initialStateType = {
     users: []
 }
 
-export const UsersReducer = (state:initialStateType=initialState, action: ActionType):initialStateType => {
+export const UsersReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
     switch (action.type) {
         case "FOLLOW":
             return {
@@ -41,7 +47,7 @@ export const UsersReducer = (state:initialStateType=initialState, action: Action
             }
         case "UNFOLLOW":
         case UNFOLLOW:
-            return {...state, users: state.users.map(m => m.id === action.userId? {...m, followed: false} : m)}
+            return {...state, users: state.users.map(m => m.id === action.userId ? {...m, followed: false} : m)}
         case "SET_USERS":
             return {...state, users: [...state.users, ...action.newUsers]}
         default:

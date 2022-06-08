@@ -3,6 +3,7 @@ import UsersComponent from "./UsersComponent";
 import {followAC, initialStateType, setUsersAC, unFollowAC, UserType} from "../../Redux/users-reducer";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
+import UsersComponentClasses from "./UsersComponentClasses";
 
 
 type mapStateToPropsType = {
