@@ -17,7 +17,8 @@ type PostTypeProps = {
 }
 
 const Posts = (props: PostTypeProps) => {
-    let postsMap = props.posts.map(el => <Post id={el.id}
+    let postsMap = props.posts.map(el => <Post key={el.id}
+                                                id={el.id}
                                                title={el.title}
                                                likes={el.likes}
                                                src={el.src}/>)

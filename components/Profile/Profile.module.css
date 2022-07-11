@@ -1,6 +1,10 @@
 .profileWrapper .bGImage img{
-    width: 600px;
+    max-width: 600px;
 }
 .cover{
     margin-left: 20px;
+}
+.name{
+    font-size: 30px;
+    font-weight: bolder;
 }

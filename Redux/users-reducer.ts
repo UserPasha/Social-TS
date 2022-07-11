@@ -49,7 +49,7 @@ let initialState: initialStateType = {
     users: [],
     pageSize: 15,
     totalUsers: 0,
-    currentPage: 11,
+    currentPage: 1,
     isLoading: false
 }
 

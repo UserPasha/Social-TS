@@ -42,12 +42,13 @@ const UserComponentContainer = (props: UserPropsType) => {
             props.togglePreloader(false)
             props.setUsers(response.data.items);
             props.setTotalUsersList(response.data.totalCount)
-            console.log(response.data.items)
+            console.log(response.data.totalCount)
         })
     },[])
 
     const onPageHandler = (pageNumber:number) => {
         props.setCurrentPage(pageNumber);
+        console.log(pageNumber)
         props.togglePreloader(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`).then(response => {
             props.togglePreloader(false)

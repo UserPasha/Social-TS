@@ -79,7 +79,8 @@ export const DialogReducer = (state=initialState, action: DialogsActionType ): D
             }
             return {...state,
             textForMessages: "",
-            dialogs: [...state.dialogs, newMessage]}
+
+                messages: [...state.messages, {id: new Date().getMinutes(), text: action.messageText}]}
         case CHANGE_NEW_MESSAGE:
             return {...state, textForMessages: action.text}
         default:

@@ -24,7 +24,7 @@ const UserPresentationComponent = (props: UserPresentationPropsType) => {
     return (
         <div className={c.wrapper}>
             <div className={c.pagesCount}>
-                {pages.map(p => <span key={p}
+                {pages.map(p => <span key={p+new Date().getMilliseconds()}
                                       className={props.currentPage === p ? c.selected : ''}
                                       onClick={(e) => {
                                           props.onPageHandler(p)
@@ -32,7 +32,7 @@ const UserPresentationComponent = (props: UserPresentationPropsType) => {
                 >{p}</span>)}
             </div>
             {
-                props.users.map(m => <div key={m.id}>
+                props.users.map(m => <div key={m.id+new Date().getMilliseconds()}>
                     <span>
                         <div>
                             <NavLink to={'/profile/' + m.id}>

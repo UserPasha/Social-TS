@@ -24,7 +24,8 @@ function App(props: stateType) {
             <Navbar/>
             <div className={"appWrapperContent"}>
                 <Routes>
-                    <Route path="/profile/:userId?" element={<ProfileContainer />}/>
+                    <Route path="/profile" element={<ProfileContainer />}/>
+                    <Route path="/profile/:id" element={<ProfileContainer />}/>
                     <Route path="/messages" element={<MessagesContainer />}/>
                     <Route path="/users" element={<UsersComponentContainer/>}/>
                     <Route path="/news" element={<News/>}/>
