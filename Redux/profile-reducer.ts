@@ -1,6 +1,7 @@
 
 const ADD_POST = "ADD-POST"
 const CHANGE_NEW_POST = "CHANGE-NEW-POST"
+const SET_USER_PROFILE = "SET_USER_PROFILE"
 
 export type PostType = {
     id: number
@@ -9,6 +10,7 @@ export type PostType = {
     src: string
 }
 export type ProfilePageType = {
+    profile: any
     textForPost: string
     posts: Array<PostType>
 }
@@ -19,10 +21,12 @@ type AddPostActionType ={
 }
 
 type ChangeNewPostActionType = ReturnType<typeof changeNewPostAC>
+type SetUserProfile = ReturnType<typeof setUserProfile>
 
-export type ProfileActionType = AddPostActionType | ChangeNewPostActionType
+export type ProfileActionType = AddPostActionType | ChangeNewPostActionType | SetUserProfile
 
-let initialState = {
+let initialState:ProfilePageType = {
+    profile: null,
     textForPost: "",
     posts: [
 
@@ -57,6 +61,8 @@ export const ProfileReducer = (state: ProfilePageType=initialState, action: Prof
                 posts: [...state.posts, newPost]}
         case CHANGE_NEW_POST:
             return{...state, textForPost: action.text}
+        case SET_USER_PROFILE:
+            return {...state, profile: action.profile}
         default:
             return state
     }
@@ -74,5 +80,11 @@ export const changeNewPostAC = (newText: string) =>{
     return{
         type: "CHANGE-NEW-POST", text: newText
     } as const
+}
+export const setUserProfile = (profile:any):{ type: "SET_USER_PROFILE", profile:any} => {
+    return {
+        type: "SET_USER_PROFILE",
+        profile
+    }
 }
 

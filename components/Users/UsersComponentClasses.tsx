@@ -4,7 +4,7 @@ import axios from "axios";
 import userPhoto from "../../Common/Images/users.png"
 import {UserPropsType} from "./UsersComponentContainer";
 
-
+//IS NOT ACTIVE
 
 class UsersComponentClasses extends React.Component<UserPropsType> {
 
@@ -25,12 +25,15 @@ class UsersComponentClasses extends React.Component<UserPropsType> {
                     this.props.users.map(m => <div key={m.id}>
                     <span>
                         <div>
-                           {/* <img src={m.photos.small !== null ? m.photos.small : userPhoto}/>*/}
+                            {/*<img src={m.photos.small !== null ? m.photos.small : userPhoto} alt={'Avatar image'}/>*/}
+
+                            <img src={userPhoto}
+                            alt={'Avatar image'}/>
                         </div>
                         <div>
                             {m.followed
                                 ?
-                                <button onClick={() => this.props.unfollow(m.id)}>Follow</button>
+                                <button onClick={() => this.props.unFollow(m.id)}>Follow</button>
                                 :
                                 <button onClick={() => this.props.follow(m.id)}>Unfollow</button>}
                         </div>

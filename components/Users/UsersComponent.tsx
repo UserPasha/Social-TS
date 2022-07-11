@@ -3,6 +3,7 @@ import {v1} from 'uuid';
 import {UserType} from "../../Redux/users-reducer";
 import {UserPropsType} from "./UsersComponentContainer";
 
+//IS NOT ACTIVE
 
 const UsersComponent = (props: UserPropsType) => {
     const [users, setUsers] = useState<Array<UserType>>([])
@@ -45,7 +46,7 @@ const UsersComponent = (props: UserPropsType) => {
                         <div>
                             {m.followed
                                 ?
-                                <button onClick={() => props.unfollow(m.id)}>Follow</button>
+                                <button onClick={() => props.unFollow(m.id)}>Follow</button>
                                 :
                                 <button onClick={() => props.follow(m.id)}>Unfollow</button>}
                         </div>

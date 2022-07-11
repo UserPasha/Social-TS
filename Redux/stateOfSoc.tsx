@@ -25,6 +25,7 @@ export type storeType = {
 const store: storeType = {
     _StateOfSoc: {
         profilePage: {
+            profile: null,
             textForPost: "",
             posts: [
 

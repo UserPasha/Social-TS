@@ -1,18 +1,16 @@
 import c from "./Profile.module.css"
 import PostsContainer from "./Posts/PostsContainer";
 import PostInfo from "./PostInfo";
+import React from "react";
+import {ProfilePropsType} from "./ProfileContainer";
 
 
-type ProfilePropsTYpe = {
-
-}
-
-const Profile = (props: ProfilePropsTYpe) => {
+const Profile = (props: ProfilePropsType) => {
 
 
     return (
         <div className={c.profileWrapper}>
-            <PostInfo/>
+            <PostInfo profile={props.profile}/>
             <PostsContainer/>
         </div>
     );

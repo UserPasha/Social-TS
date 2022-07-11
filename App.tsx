@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {Routes, Route} from "react-router-dom";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import UsersComponentContainer from './components/Users/UsersComponentContainer';
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 type stateType = {
@@ -24,7 +24,7 @@ function App(props: stateType) {
             <Navbar/>
             <div className={"appWrapperContent"}>
                 <Routes>
-                    <Route path="/profile" element={<Profile />}/>
+                    <Route path="/profile/:userId?" element={<ProfileContainer />}/>
                     <Route path="/messages" element={<MessagesContainer />}/>
                     <Route path="/users" element={<UsersComponentContainer/>}/>
                     <Route path="/news" element={<News/>}/>
