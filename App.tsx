@@ -9,6 +9,7 @@ import {Routes, Route} from "react-router-dom";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import UsersComponentContainer from './components/Users/UsersComponentContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 type stateType = {
@@ -20,7 +21,7 @@ function App(props: stateType) {
 
     return (
         <div className={"appWrapper"}>
-            <Header/>
+            <HeaderContainer />
             <Navbar/>
             <div className={"appWrapperContent"}>
                 <Routes>

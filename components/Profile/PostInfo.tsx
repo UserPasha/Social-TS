@@ -2,16 +2,17 @@ import React from 'react';
 import c from "./Profile.module.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import {Rings} from 'react-loader-spinner'
-
+import {ProfileType} from "../../Redux/profile-reducer";
+import userPhoto from "../../Common/Images/users.png"
 
 type PostInfoPropsType ={
-    profile: any
+    profile:  ProfileType | null
 }
 
 const PostInfo = (props: PostInfoPropsType) => {
     if(!props.profile){
         return <Rings color="#00BFFF" height={80} width={80}/>
-        console.log(props.profile.name)
+
     }
     return (
         <div>
@@ -21,7 +22,7 @@ const PostInfo = (props: PostInfoPropsType) => {
                     alt="background-cover"/>
             </div>
             <div className={c.cover}>
-                <img src={props.profile.photos.large} alt={"User Avatar"}/>
+                <img src={props.profile.photos.large !== null ? props.profile.photos.large : userPhoto} alt={"User Avatar"}/>
                 <div>
                <span className={c.name}>{props.profile.fullName}</span>
                 </div>

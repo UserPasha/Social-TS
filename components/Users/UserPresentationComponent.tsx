@@ -2,7 +2,8 @@ import React from 'react';
 import c from "./UserComponentFunctional.module.css";
 import userPhoto from "../../Common/Images/users.png";
 import {NavLink} from "react-router-dom";
-import {UserType} from "../../Redux/users-reducer";
+import {followRequester, UserType} from "../../Redux/users-reducer";
+import { usersAPI } from '../../API/api';
 
 //IS ACTIVE
 type UserPresentationPropsType = {
@@ -13,6 +14,8 @@ type UserPresentationPropsType = {
     follow: (userId: string)=> void
     unFollow: (userId: string)=> void
     users: Array<UserType>
+    followRequester: (isLoadingBoolean: boolean, id: number| string)=>void
+    requestToFollowIdArray: Array<number | string>
 }
 const UserPresentationComponent = (props: UserPresentationPropsType) => {
     let pagesOfgUsers = Math.ceil(props.totalUsers / props.pageSize)
@@ -44,9 +47,33 @@ const UserPresentationComponent = (props: UserPresentationPropsType) => {
                         <div>
                             {m.followed
                                 ?
-                                <button onClick={() => props.unFollow(m.id)}>Follow</button>
-                                :
-                                <button onClick={() => props.follow(m.id)}>Unfollow</button>}
+
+                                // <button onClick={() => props.follow(m.id)}>Unfollow</button>
+                                <button disabled={props.requestToFollowIdArray.some(id => id === m.id)} onClick={() => {
+                                    props.followRequester(true, m.id)
+                                    usersAPI.unfollowUser(m.id).then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.unFollow(m.id)
+                                        }
+                                        props.followRequester(false, m.id)
+
+                                    })
+
+                                }}>Unfollow</button>
+                            :
+                            // <button onClick={() => props.unFollow(m.id)}>Follow</button>
+                                <button disabled={props.requestToFollowIdArray.some(id => id === m.id)} onClick={() => {
+                                    props.followRequester(true, m.id)
+
+                                    usersAPI.followUser(m.id).then(data => {
+                                        if (data.resultCode === 0) {
+                                            props.follow(m.id)
+                                        }
+                                        props.followRequester(false, m.id)
+
+                                    })
+
+                                }}>follow</button>}
                         </div>
                     </span>
                     <span>

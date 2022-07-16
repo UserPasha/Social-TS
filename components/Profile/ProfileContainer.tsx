@@ -3,18 +3,18 @@ import axios from "axios";
 import Profile from "./Profile";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../Redux/profile-reducer";
+import {ProfileType, setUserProfile} from "../../Redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {withRouter} from "../../Common/WithRouterSelf";
-//import {withRouter} from "react-router";
+
 
 
 export type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType = {
-    profile: any
+    profile: ProfileType | null
 }
 type mapDispatchToPropsType = {
-    setUserProfile: (profile: any) => void
+    setUserProfile: (profile: ProfileType) => void
 }
 
 

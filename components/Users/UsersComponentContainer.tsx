@@ -5,7 +5,7 @@ import {
     setTotalUsersList,
     setUsers,
     unFollow,
-    UserType, togglePreloader
+    UserType, togglePreloader, followRequester
 } from "../../Redux/users-reducer";
 import {AppRootStateType} from "../../Redux/redux-store";
 import React from "react";
@@ -14,9 +14,10 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import {Rings} from 'react-loader-spinner'
 import UserPresentationComponent from './UserPresentationComponent'
 
+
 //IS ACTIVE
 
-export type UserPropsType =  mapStateToPropsType & mapDispatchToPropsType
+export type UserPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 
 type mapStateToPropsType = {
@@ -25,18 +26,20 @@ type mapStateToPropsType = {
     totalUsers: number
     currentPage: number
     isLoading: boolean
+    requestToFollowIdArray: Array<number | string>
 }
 type mapDispatchToPropsType = {
-    follow:(userId: string) => void
-    unFollow: (userId: string) =>void
-    setUsers: (newUsers: Array<UserType>) =>void
-    setCurrentPage:(pageNumber: number) => void
-    setTotalUsersList:(totalCount: number)=> void
-    togglePreloader: (isLoadingBoolean:boolean)=> void
+    follow: (userId: string) => void
+    unFollow: (userId: string) => void
+    setUsers: (newUsers: Array<UserType>) => void
+    setCurrentPage: (pageNumber: number) => void
+    setTotalUsersList: (totalCount: number) => void
+    togglePreloader: (isLoadingBoolean: boolean) => void
+   followRequester:  (isLoadingBoolean: boolean, id: number| string)=>void
 }
 
 const UserComponentContainer = (props: UserPropsType) => {
-    React.useEffect(()=>{
+    React.useEffect(() => {
         props.togglePreloader(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`).then(response => {
             props.togglePreloader(false)
@@ -44,9 +47,9 @@ const UserComponentContainer = (props: UserPropsType) => {
             props.setTotalUsersList(response.data.totalCount)
             console.log(response.data.totalCount)
         })
-    },[])
+    }, [])
 
-    const onPageHandler = (pageNumber:number) => {
+    const onPageHandler = (pageNumber: number) => {
         props.setCurrentPage(pageNumber);
         console.log(pageNumber)
         props.togglePreloader(true)
@@ -58,20 +61,20 @@ const UserComponentContainer = (props: UserPropsType) => {
     }
     return (
         <>
-            {props.isLoading ? <Rings color="#00BFFF" height={80} width={80}/> :null}
-             <UserPresentationComponent totalUsers={props.totalUsers}
-             pageSize={props.pageSize}
-             currentPage={props.currentPage}
-             onPageHandler={onPageHandler}
-             follow={props.follow}
-             unFollow={props.unFollow}
-             users={props.users}
-             />
-                     </>
+            {props.isLoading ? <Rings color="#00BFFF" height={80} width={80}/> : null}
+            <UserPresentationComponent totalUsers={props.totalUsers}
+                                       pageSize={props.pageSize}
+                                       currentPage={props.currentPage}
+                                       onPageHandler={onPageHandler}
+                                       follow={props.follow}
+                                       unFollow={props.unFollow}
+                                       users={props.users}
+                                       followRequester={props.followRequester}
+                                      requestToFollowIdArray={props.requestToFollowIdArray}
+            />
+        </>
     )
 }
-
-
 
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
@@ -80,57 +83,14 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsers: state.usersPage.totalUsers,
         currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+        requestToFollowIdArray: state.usersPage.requestToFollowIdArray
     }
 }
 
-// let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(follow(userId))
-//         },
-//         unFollow: (userId) => {
-//             dispatch(unFollow(userId))
-//         },
-//         setUsers: (newUsers: Array<UserType>) => {
-//             dispatch(setUsers(newUsers))
-//         },
-//         setCurrentPage: (pageNumber) => {
-//             dispatch(setCurrentPage(pageNumber))
-//         },
-//         setTotalUsersList: (totalCount) => {
-//             dispatch(setTotalUsersList(totalCount))
-//         },
-//         togglePreloader: (isLoadingBoolean)=>{
-//             dispatch(togglePreloader(isLoadingBoolean))
-//         }
-//     }
-// }
 
-
-
-
-    // let pagesOfgUsers = Math.ceil(props.totalUsers / props.pageSize)
-    // let pages = []
-    // for (let i = 1; i <= pagesOfgUsers; i++) {
-    //     pages.push(i)
-    // }
-
-
-    // return (
-    //     <>
-    //         {props.isLoading ? <Rings color="#00BFFF" height={80} width={80}/>}
-    // <UsersPresentation totalUsers={props.totalUsers}
-    // pageSize={props.pageSize}
-    // currentPage={props.currentPage}
-    // onPageHandler={onPageHandler}
-    // follow={props.follow}
-    // unfollow={props.unfollow}
-    // users={props.users}
-    // />
-    //         </>
-    // )
-
-// export default connect(mapStateToProps, mapDispatchToProps)(UsersComponentClasses)
-export default connect(mapStateToProps, {follow, unFollow, setUsers,
-    setCurrentPage, setTotalUsersList, togglePreloader})(UserComponentContainer)
+export default connect(mapStateToProps, {
+    follow, unFollow, setUsers,
+    setCurrentPage, setTotalUsersList, togglePreloader
+    , followRequester
+})(UserComponentContainer)

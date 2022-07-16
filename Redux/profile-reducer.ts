@@ -9,8 +9,31 @@ export type PostType = {
     likes: number
     src: string
 }
+type contactsType = {
+    facebook: string | null
+    github: string | null
+    instagram: string | null
+    mainLink: string | null
+    twitter: string | null
+    vk: string | null
+    website: string | null
+    youtube: string | null
+}
+type photosType = {
+    large: string | null
+    small: string | null
+}
+export type ProfileType = {
+    aboutMe: string
+    fullName: string
+    lookingForAJob:boolean
+    lookingForAJobDescription: string
+    userId: number
+    contacts: contactsType
+    photos: photosType
+}
 export type ProfilePageType = {
-    profile: any
+    profile: ProfileType | null
     textForPost: string
     posts: Array<PostType>
 }
@@ -81,7 +104,7 @@ export const changeNewPostAC = (newText: string) =>{
         type: "CHANGE-NEW-POST", text: newText
     } as const
 }
-export const setUserProfile = (profile:any):{ type: "SET_USER_PROFILE", profile:any} => {
+export const setUserProfile = (profile:ProfileType):{ type: "SET_USER_PROFILE", profile:ProfileType} => {
     return {
         type: "SET_USER_PROFILE",
         profile
