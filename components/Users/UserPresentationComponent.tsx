@@ -11,8 +11,8 @@ type UserPresentationPropsType = {
     pageSize: number
     currentPage: number
     onPageHandler: (p: number)=> void
-    follow: (userId: string)=> void
-    unFollow: (userId: string)=> void
+    follow: (userId: string | number)=> void
+    unFollow: (userId: string | number)=> void
     users: Array<UserType>
     followRequester: (isLoadingBoolean: boolean, id: number| string)=>void
     requestToFollowIdArray: Array<number | string>

@@ -9,10 +9,10 @@ import {
 } from "../../Redux/users-reducer";
 import {AppRootStateType} from "../../Redux/redux-store";
 import React from "react";
-import axios from "axios";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import {Rings} from 'react-loader-spinner'
 import UserPresentationComponent from './UserPresentationComponent'
+import {usersAPI} from "../../API/api";
 
 
 //IS ACTIVE
@@ -29,8 +29,8 @@ type mapStateToPropsType = {
     requestToFollowIdArray: Array<number | string>
 }
 type mapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unFollow: (userId: string) => void
+    follow: (userId: string | number) => void
+    unFollow: (userId: string | number) => void
     setUsers: (newUsers: Array<UserType>) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersList: (totalCount: number) => void
@@ -41,11 +41,11 @@ type mapDispatchToPropsType = {
 const UserComponentContainer = (props: UserPropsType) => {
     React.useEffect(() => {
         props.togglePreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`).then(response => {
+        usersAPI.getListOfUsers(props.currentPage, props.pageSize).then(data => {
             props.togglePreloader(false)
-            props.setUsers(response.data.items);
-            props.setTotalUsersList(response.data.totalCount)
-            console.log(response.data.totalCount)
+            props.setUsers(data.items);
+            props.setTotalUsersList(data.totalCount)
+            console.log(data.totalCount)
         })
     }, [])
 
@@ -53,10 +53,10 @@ const UserComponentContainer = (props: UserPropsType) => {
         props.setCurrentPage(pageNumber);
         console.log(pageNumber)
         props.togglePreloader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`).then(response => {
+        usersAPI.getCurrentPage(pageNumber, props.pageSize).then(data => {
             props.togglePreloader(false)
-            props.setUsers(response.data.items)
-            console.log(response.data.items)
+            props.setUsers(data.items)
+            console.log(data.items)
         })
     }
     return (

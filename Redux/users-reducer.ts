@@ -51,7 +51,7 @@ type ActionType = followType
 
 let initialState: initialStateType = {
     users: [],
-    pageSize: 15,
+    pageSize: 10,
     totalUsers: 0,
     currentPage: 1,
     isLoading: false,
@@ -59,17 +59,14 @@ let initialState: initialStateType = {
 }
 
 export const UsersReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
-    debugger
+
     switch (action.type) {
         case FOLLOW:
-            return {
-                ...state,
-                users: state.users.map(m => m.id === action.userId ? {...m, followed: true} : m)
-            }
+            return {...state, users: state.users.map(m => m.id === action.userId ? {...m, followed: true} : m)}
         case UNFOLLOW:
             return {...state, users: state.users.map(m => m.id === action.userId ? {...m, followed: false} : m)}
         case SET_USERS:
-            return {...state, users: [...state.users, ...action.newUsers]}
+            return {...state, users: action.newUsers}
         case GET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USER_LIST:
@@ -88,12 +85,12 @@ export const UsersReducer = (state: initialStateType = initialState, action: Act
     }
 }
 
-export const follow = (userId: string): { type: "FOLLOW", userId: string } => {
+export const follow = (userId: string | number): { type: "FOLLOW", userId: string | number } => {
     return {
         type: "FOLLOW", userId
     } as const
 }
-export const unFollow = (userId: string): { type: "UNFOLLOW", userId: string } => {
+export const unFollow = (userId: string | number): { type: "UNFOLLOW", userId: string | number } => {
     return {
         type: "UNFOLLOW", userId
     } as const
