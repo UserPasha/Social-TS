@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import c from "./Messages.module.css"
 import DialogUsers, {DialogsType} from "./DialogUsers/DialogUsers";
 import MessagesFromUsers, {MessageType} from "./MessagesFromUsers/MessagesFromUsers";
+import {Navigate} from "react-router-dom";
 
 
 type DialogPageType = {
@@ -10,6 +11,7 @@ type DialogPageType = {
     addMessage: (messageText: string) => void
     forNewMessage: string
     changeForNewMessage: (text: string) => void
+    isAuth: boolean
 }
 
 
@@ -24,6 +26,7 @@ const Messages = (props: DialogPageType) => {
     const newMessageCallbackHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>{
         props.changeForNewMessage(e.currentTarget.value)
     }
+    if (!props.isAuth) return <Navigate to="/login" />
     return (
         <div className={c.messageWrapper}>
             <div className={c.userDialogs}>

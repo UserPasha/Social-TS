@@ -10,6 +10,7 @@ import MessagesContainer from "./components/Messages/MessagesContainer";
 import UsersComponentContainer from './components/Users/UsersComponentContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./Common/Components/LoginPage";
 
 
 type stateType = {
@@ -32,6 +33,7 @@ function App(props: stateType) {
                     <Route path="/news" element={<News/>}/>
                     <Route path="/music" element={<Music/>}/>
                     <Route path="/settings" element={<Settings/>}/>
+                    <Route path="/login" element={<LoginPage/>}/>
                 </Routes>
             </div>
         </div>

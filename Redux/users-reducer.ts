@@ -1,3 +1,7 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../API/api";
+
+
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
@@ -115,8 +119,52 @@ export const togglePreloader = (isLoadingBoolean: boolean): { type: "IS_LOADING"
         type: "IS_LOADING", isLoadingBoolean
     } as const
 }
-export const followRequester = (isLoadingBoolean: boolean, id: number| string): { type: "REQUEST_TO_FOLLOW", isLoadingBoolean: boolean, id: number| string } => {
+export const followRequester = (isLoadingBoolean: boolean, id: number | string): { type: "REQUEST_TO_FOLLOW", isLoadingBoolean: boolean, id: number | string } => {
     return {
         type: "REQUEST_TO_FOLLOW", isLoadingBoolean, id
     } as const
+}
+export const getUsersListThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(togglePreloader(true))
+        usersAPI.getListOfUsers(currentPage, pageSize).then(data => {
+            dispatch(togglePreloader(false))
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersList(data.totalCount))
+        })
+    }
+}
+export const getCurrentPageThunkCreator = (pageNumber: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setCurrentPage(pageNumber));
+        dispatch(togglePreloader(true))
+        usersAPI.getCurrentPage(pageNumber, pageSize).then(data => {
+            dispatch(togglePreloader(false))
+            dispatch(setUsers(data.items))
+        })
+    }
+}
+export const unFollowUserThunkCreator = (id: number | string) => {
+    return (dispatch: Dispatch) => {
+        dispatch(followRequester(true, id))
+        usersAPI.unfollowUser(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollow(id))
+            }
+            dispatch(followRequester(false, id))
+        })
+    }
+}
+export const followUserThunkCreator = (id: number | string) => {
+    return (dispatch: Dispatch) => {
+        dispatch(followRequester(true, id))
+
+        usersAPI.followUser(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(follow(id))
+            }
+            dispatch(followRequester(false, id))
+
+        })
+    }
 }
