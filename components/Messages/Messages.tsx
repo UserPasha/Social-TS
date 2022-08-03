@@ -26,7 +26,7 @@ const Messages = (props: DialogPageType) => {
     const newMessageCallbackHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>{
         props.changeForNewMessage(e.currentTarget.value)
     }
-    if (!props.isAuth) return <Navigate to="/login" />
+    // if (!props.isAuth) return <Navigate to="/login" />
     return (
         <div className={c.messageWrapper}>
             <div className={c.userDialogs}>

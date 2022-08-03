@@ -14,6 +14,8 @@ import React from "react";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import {Rings} from 'react-loader-spinner'
 import UserPresentationComponent from './UserPresentationComponent'
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/withAuthRediresct";
 
 
 
@@ -82,10 +84,12 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 }
 
 
-export default connect(mapStateToProps, {
 
+
+export default compose<React.ComponentType>(connect(mapStateToProps, {
     setCurrentPage, setTotalUsersList, togglePreloader
     , followRequester, getUsersList: getUsersListThunkCreator,
     getCurrentPage: getCurrentPageThunkCreator, unFollowUser: unFollowUserThunkCreator,
     followUser: followUserThunkCreator
-})(UserComponentContainer)
+}),
+    WithAuthRedirect)(UserComponentContainer)
