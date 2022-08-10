@@ -2,46 +2,48 @@ import React, {ChangeEvent, useState} from 'react';
 
 type ProfileStatusPropsType = {
    status: string
+    updateStatus: (status: string)=>void
 }
 
 const ProfileStatus = (props: ProfileStatusPropsType) => {
-debugger
+
     const [mode, setMode] = useState(false)
 
     const [status, setStatus] = useState<string>(props.status)
 
 
     const valueChanger = (e: ChangeEvent<HTMLInputElement>) => {
+
         setStatus(e.currentTarget.value)
     }
-    // const StatusSaver = () => {
-    //     setMode(false)
-    // }
-
-    const escapeStatus = () => {
+    const StatusSaver = () => {
         setMode(false)
+        props.updateStatus(status)
     }
+
+
     const StatusChanger = () => {
         setMode(true)
     }
+    React.useEffect(() => { props.updateStatus(status)}, [status])
 
     return (
         <div>
             {!mode &&
                 <div>
                         <span onDoubleClick={StatusChanger}>
-                            {status}
+                            {status? status: "----"}
                         </span>
                 </div>
             }
             {mode &&
                 <div>
                     <input autoFocus={true}
-                           onBlur={escapeStatus}
+
                            value={status}
                            onChange={valueChanger}
                     />
-                    {/*<button onClick={StatusSaver}>Save status</button>*/}
+                    <button onClick={StatusSaver}>Save status</button>
                 </div>
 
             }

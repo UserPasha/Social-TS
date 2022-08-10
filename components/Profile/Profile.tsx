@@ -10,7 +10,7 @@ const Profile = (props: ProfilePropsType) => {
 
     return (
         <div className={c.profileWrapper}>
-            <PostInfo profile={props.profile}/>
+            <PostInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <PostsContainer/>
         </div>
     );

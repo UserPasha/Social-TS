@@ -1,9 +1,10 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../API/api";
+import {profileAPI, usersAPI} from "../API/api";
 
 const ADD_POST = "ADD-POST"
 const CHANGE_NEW_POST = "CHANGE-NEW-POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
+const SET_STATUS = "SET_STATUS"
 
 export type PostType = {
     id: number
@@ -38,6 +39,7 @@ export type ProfilePageType = {
     profile: ProfileType | null
     textForPost: string
     posts: Array<PostType>
+    status: string
 }
 
 type AddPostActionType ={
@@ -47,11 +49,16 @@ type AddPostActionType ={
 
 type ChangeNewPostActionType = ReturnType<typeof changeNewPostAC>
 type SetUserProfile = ReturnType<typeof setUserProfile>
+type setStatusProfile = ReturnType<typeof setStatus>
 
-export type ProfileActionType = AddPostActionType | ChangeNewPostActionType | SetUserProfile
+export type ProfileActionType = AddPostActionType
+    | ChangeNewPostActionType
+    | SetUserProfile
+    | setStatusProfile
 
 let initialState:ProfilePageType = {
     profile: null,
+    status: "",
     textForPost: "",
     posts: [
 
@@ -88,6 +95,10 @@ export const ProfileReducer = (state: ProfilePageType=initialState, action: Prof
             return{...state, textForPost: action.text}
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
+        case SET_STATUS: return {
+            ...state,
+            status: action.status
+        }
         default:
             return state
     }
@@ -112,6 +123,12 @@ export const setUserProfile = (profile:ProfileType):{ type: "SET_USER_PROFILE", 
         profile
     }
 }
+export const setStatus = (status:string) =>{
+    return {
+        type: "SET_STATUS",
+        status
+    } as const
+}
 
 export const userProfileThunkCreator = (id: number | string)=>{
     return (dispatch: Dispatch) => {
@@ -120,4 +137,20 @@ export const userProfileThunkCreator = (id: number | string)=>{
                 dispatch(setUserProfile(response.data));
             })
     }
+}
+export const getProfileStatusThunkCreator = (id: number | string)=>{
+    return(dispatch: Dispatch)=>{
+        profileAPI.getStatus(id)
+            .then(res=>{
+                dispatch(setStatus(res.data))
+            })
+    }
+}
+export const updateProfileStatusThunkCreator = (status:string)=> (dispatch: Dispatch)=>{
+    profileAPI.updateStatus(status)
+        .then(res=>{
+            if(res.data.resultCode===0){
+                dispatch(setStatus(status))
+            }
+        })
 }

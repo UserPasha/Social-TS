@@ -26,6 +26,7 @@ const store: storeType = {
     _StateOfSoc: {
         profilePage: {
             profile: null,
+            status: "",
             textForPost: "",
             posts: [
 

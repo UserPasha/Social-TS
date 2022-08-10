@@ -8,9 +8,12 @@ import ProfileStatus from "./ProfileStatus";
 
 type PostInfoPropsType = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (status: string)=>void
 }
 
 const PostInfo = (props: PostInfoPropsType) => {
+    console.log(props)
     if (!props.profile) {
         return <Rings color="#00BFFF" height={80} width={80}/>
 
@@ -32,7 +35,7 @@ const PostInfo = (props: PostInfoPropsType) => {
                     <span>{props.profile.aboutMe}</span>
                 </div>
 
-                <ProfileStatus status={"HEY i got THIS!"}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
 
 
             </div>
