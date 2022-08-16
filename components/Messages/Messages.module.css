@@ -10,3 +10,11 @@
     border-left: 1px dotted grey;
     background-color: rgb(233, 205, 209);
 }
+.error{
+    width: 200px;
+    height: 50px;
+    color: red;
+}
+.form{
+    margin: 20px 0 0 20px
+}

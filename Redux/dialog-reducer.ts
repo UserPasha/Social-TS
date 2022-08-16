@@ -1,7 +1,6 @@
 
-
 const ADD_MESSAGE = "ADD-MESSAGE"
-const CHANGE_NEW_MESSAGE = "CHANGE-NEW-MESSAGE"
+
 
 export type DialogsType = {
     name: string
@@ -13,7 +12,6 @@ export type MessageType = {
     id: number
 }
 export type DialogPageType = {
-    textForMessages: string
     dialogs: Array<DialogsType>
     messages: Array<MessageType>
 }
@@ -21,12 +19,11 @@ type AddMessageActionType ={
     type: "ADD-MESSAGE"
     messageText: string
 }
-type ChangeNewMessageActionType = ReturnType<typeof changeNewMessageAC>
 
-export type DialogsActionType = AddMessageActionType | ChangeNewMessageActionType
+
+export type DialogsActionType = AddMessageActionType
 
 let initialState = {
-    textForMessages: "",
     dialogs: [
         {
             name: "Flanders",
@@ -71,18 +68,14 @@ let initialState = {
 export const DialogReducer = (state=initialState, action: DialogsActionType ): DialogPageType=>{
     switch (action.type){
         case ADD_MESSAGE:
-            let newMessage = {
-                text: state.textForMessages,
-                id: 6,
-                img: "",
-                name: 'name'
-            }
+            // let newMessage = {
+            //     text: action.messageText,
+            //     id: 6,
+            //     img: "",
+            //     name: 'name'
+            // }
             return {...state,
-            textForMessages: "",
-
                 messages: [...state.messages, {id: new Date().getMinutes(), text: action.messageText}]}
-        case CHANGE_NEW_MESSAGE:
-            return {...state, textForMessages: action.text}
         default:
             return state
     }
@@ -94,9 +87,5 @@ export const addMessageAC = (messageText: string):AddMessageActionType => {
         type: "ADD-MESSAGE", messageText: messageText
     }
 }
-export const changeNewMessageAC = (newText: string) =>{
-    return{
-        type: "CHANGE-NEW-MESSAGE", text: newText
-    } as const
-}
+
 

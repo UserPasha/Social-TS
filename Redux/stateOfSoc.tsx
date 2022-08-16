@@ -15,8 +15,6 @@ export type storeType = {
     _onchangeTree: () => void
     addPost: (postText: string) => void
     addMessage: (messageText: string) => void
-    changeForNewMessage: (text: string) => void
-    changeForNewPost: (text: string) => void
     subscribe: (callback: () => void) => void
     getState: () => RootStateType,
     dispatch: (action: ActionsTypes) => void
@@ -27,7 +25,6 @@ const store: storeType = {
         profilePage: {
             profile: null,
             status: "",
-            textForPost: "",
             posts: [
 
                 {
@@ -47,7 +44,7 @@ const store: storeType = {
             ]
         },
         dialogsPage: {
-            textForMessages: "",
+
             dialogs: [
                 {
                     name: "Flanders",
@@ -100,10 +97,7 @@ const store: storeType = {
             src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
         }
         this._StateOfSoc.profilePage.posts.push(newPost)
-        this._StateOfSoc.profilePage.textForPost = ""
         this._onchangeTree()
-        // stateR.profilePage.newPostText = ""
-        // rerenderEntireTree(stateR)
     },
     addMessage(messageText){
         const newMessage: MessageType = {
@@ -111,17 +105,9 @@ const store: storeType = {
             id: 6
         }
         this._StateOfSoc.dialogsPage.messages.push(newMessage)
-        this._StateOfSoc.dialogsPage.textForMessages = ""
         this._onchangeTree()
     },
-    changeForNewMessage(text) {
-        this._StateOfSoc.dialogsPage.textForMessages = text
-        this._onchangeTree()
-    },
-    changeForNewPost (text) {
-        this._StateOfSoc.profilePage.textForPost = text
-        this._onchangeTree()
-    },
+
     subscribe(callback){
         this._onchangeTree = callback
     },
@@ -137,7 +123,6 @@ const store: storeType = {
                  src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
              }
              this._StateOfSoc.profilePage.posts.push(newPost)
-             this._StateOfSoc.profilePage.textForPost = ""
              this._onchangeTree()
          } else if( action.type === "ADD-MESSAGE"){
              const newMessage: MessageType = {
@@ -145,13 +130,6 @@ const store: storeType = {
                  id: 6
              }
              this._StateOfSoc.dialogsPage.messages.push(newMessage)
-             this._StateOfSoc.dialogsPage.textForMessages = ""
-             this._onchangeTree()
-         } else if(action.type === "CHANGE-NEW-MESSAGE"){
-             this._StateOfSoc.dialogsPage.textForMessages = action.text
-             this._onchangeTree()
-         } else if(action.type === "CHANGE-NEW-POST"){
-             this._StateOfSoc.profilePage.textForPost = action.text
              this._onchangeTree()
          }
     }

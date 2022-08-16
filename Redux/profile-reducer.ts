@@ -2,7 +2,6 @@ import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../API/api";
 
 const ADD_POST = "ADD-POST"
-const CHANGE_NEW_POST = "CHANGE-NEW-POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_STATUS = "SET_STATUS"
 
@@ -37,7 +36,6 @@ export type ProfileType = {
 }
 export type ProfilePageType = {
     profile: ProfileType | null
-    textForPost: string
     posts: Array<PostType>
     status: string
 }
@@ -47,19 +45,17 @@ type AddPostActionType ={
     postText: string
 }
 
-type ChangeNewPostActionType = ReturnType<typeof changeNewPostAC>
+
 type SetUserProfile = ReturnType<typeof setUserProfile>
 type setStatusProfile = ReturnType<typeof setStatus>
 
 export type ProfileActionType = AddPostActionType
-    | ChangeNewPostActionType
     | SetUserProfile
     | setStatusProfile
 
 let initialState:ProfilePageType = {
     profile: null,
     status: "",
-    textForPost: "",
     posts: [
 
         {
@@ -84,15 +80,13 @@ export const ProfileReducer = (state: ProfilePageType=initialState, action: Prof
         case ADD_POST:
             let newPost = {
                 id: 3,
-                title: state.textForPost,
+                title: action.postText,
                 likes: 0,
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
             }
             return {...state,
                 textForPost: "",
                 posts: [...state.posts, newPost]}
-        case CHANGE_NEW_POST:
-            return{...state, textForPost: action.text}
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         case SET_STATUS: return {
@@ -112,11 +106,6 @@ export const addPostAC = (postText: string):AddPostActionType => {
     }
 }
 
-export const changeNewPostAC = (newText: string) =>{
-    return{
-        type: "CHANGE-NEW-POST", text: newText
-    } as const
-}
 export const setUserProfile = (profile:ProfileType):{ type: "SET_USER_PROFILE", profile:ProfileType} => {
     return {
         type: "SET_USER_PROFILE",
