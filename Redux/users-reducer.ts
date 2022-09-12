@@ -45,7 +45,7 @@ type getTotalUserList = ReturnType<typeof setTotalUsersList>
 type isLoadingType = ReturnType<typeof togglePreloader>
 type followRequesterType = ReturnType<typeof followRequester>
 
-type ActionType = followType
+export type UsersActionType = followType
     | unFollowType
     | setUsersType
     | getCurrentPageType
@@ -62,7 +62,7 @@ let initialState: initialStateType = {
     requestToFollowIdArray: []
 }
 
-export const UsersReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
+export const UsersReducer = (state: initialStateType = initialState, action: UsersActionType): initialStateType => {
 
     switch (action.type) {
         case FOLLOW:

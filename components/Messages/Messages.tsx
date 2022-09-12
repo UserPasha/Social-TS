@@ -54,10 +54,11 @@ const MessagesForm = (props: MessagesFormPropsType) => {
     const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm<MessagesInputs>({
         mode: "onBlur"
     });
-     const onSubmit: SubmitHandler<MessagesInputs> = (data) => {
-         console.log(data)
-         reset()
-     };
+     // const onSubmit: SubmitHandler<MessagesInputs> = (data) => {
+     //     console.log(data)
+     //     reset()
+     // };
+
 
     return (
         <form onSubmit={handleSubmit(props.onSubmit)} className={c.form}>

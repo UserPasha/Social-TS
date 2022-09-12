@@ -1,0 +1,8 @@
+.errorBlock{
+    width: 200px;
+    height: 50px;
+    color: red;
+}
+.input{
+    display: block;
+}

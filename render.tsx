@@ -9,6 +9,8 @@ import {Provider} from "react-redux";
 
 
 export const renderTree = () => {
+
+
     ReactDOM.render(
        /* <React.StrictMode>*/
             <BrowserRouter>

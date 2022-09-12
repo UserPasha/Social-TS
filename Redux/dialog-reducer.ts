@@ -68,12 +68,6 @@ let initialState = {
 export const DialogReducer = (state=initialState, action: DialogsActionType ): DialogPageType=>{
     switch (action.type){
         case ADD_MESSAGE:
-            // let newMessage = {
-            //     text: action.messageText,
-            //     id: 6,
-            //     img: "",
-            //     name: 'name'
-            // }
             return {...state,
                 messages: [...state.messages, {id: new Date().getMinutes(), text: action.messageText}]}
         default:

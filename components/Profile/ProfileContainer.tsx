@@ -14,12 +14,11 @@ import {WithAuthRedirect} from "../../hoc/withAuthRediresct";
 import {compose} from "redux";
 
 
-
-
 export type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType = {
     profile: ProfileType | null
     status: string
+    userDataId: number| null
 }
 type mapDispatchToPropsType = {
     getUserProfile:(id: string | number) => void
@@ -34,9 +33,12 @@ const ProfileContainer = (props: ProfilePropsType) => {
     React.useEffect(() => {
 
         if (!id) {
-            id = '23337'
+            id = props.userDataId?.toString()
         }
+
+        // @ts-ignore
         props.getUserProfile(id)
+        // @ts-ignore
         props.getStatus(id)
 
     }, [])
@@ -47,7 +49,8 @@ const ProfileContainer = (props: ProfilePropsType) => {
 
 let mapStateToProps = (state: AppRootStateType):mapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    userDataId: state.auth.userId
 })
 
 
