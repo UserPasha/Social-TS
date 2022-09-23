@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import c from "./MessageFromUsers.module.css"
 
 export type MessageType = {
@@ -6,12 +6,12 @@ export type MessageType = {
     id: number
 }
 
-const MessagesFromUsers = (props: MessageType) => {
+const MessagesFromUsers:FC<MessageType> = memo(({text, id}) => {
     return (
         <div className={c.wrapper}>
-            <p>{props.text}</p>
+            <p>{text}</p>
         </div>
     );
-};
+});
 
 export default MessagesFromUsers;

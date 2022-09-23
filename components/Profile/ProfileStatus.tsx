@@ -1,38 +1,40 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
 
 type ProfileStatusPropsType = {
-   status: string
-    updateStatus: (status: string)=>void
+    status: string
+    updateStatus: (status: string) => void
 }
 
-const ProfileStatus = (props: ProfileStatusPropsType) => {
+const ProfileStatus: FC<ProfileStatusPropsType> = memo(({status, updateStatus}) => {
 
     const [mode, setMode] = useState(false)
 
-    const [status, setStatus] = useState<string>(props.status)
+    const [localStatus, setLocalStatus] = useState<string>(status)
 
 
     const valueChanger = (e: ChangeEvent<HTMLInputElement>) => {
 
-        setStatus(e.currentTarget.value)
+        setLocalStatus(e.currentTarget.value)
     }
     const StatusSaver = () => {
         setMode(false)
-        props.updateStatus(status)
+        updateStatus(localStatus)
     }
 
 
     const StatusChanger = () => {
         setMode(true)
     }
-    React.useEffect(() => { props.updateStatus(status)}, [status])
+    React.useEffect(() => {
+        setLocalStatus(status)
+    }, [status])
 
     return (
         <div>
             {!mode &&
                 <div>
                         <span onDoubleClick={StatusChanger}>
-                            {status? status: "----"}
+                            {localStatus ? localStatus : "----"}
                         </span>
                 </div>
             }
@@ -40,7 +42,7 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
                 <div>
                     <input autoFocus={true}
 
-                           value={status}
+                           value={localStatus}
                            onChange={valueChanger}
                     />
                     <button onClick={StatusSaver}>Save status</button>
@@ -49,6 +51,6 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
             }
         </div>
     );
-};
+});
 
 export default ProfileStatus;

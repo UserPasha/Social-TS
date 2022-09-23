@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import c from "./Profile.module.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import {Rings} from 'react-loader-spinner'
@@ -12,9 +12,9 @@ type PostInfoPropsType = {
     updateStatus: (status: string)=>void
 }
 
-const PostInfo = (props: PostInfoPropsType) => {
-    console.log(props)
-    if (!props.profile) {
+const PostInfo:FC<PostInfoPropsType> = memo(({profile, status, updateStatus}) => {
+
+    if (!profile) {
         return <Rings color="#00BFFF" height={80} width={80}/>
 
     }
@@ -26,21 +26,21 @@ const PostInfo = (props: PostInfoPropsType) => {
                     alt="background-cover"/>
             </div>
             <div className={c.cover}>
-                <img src={props.profile.photos.large !== null ? props.profile.photos.large : userPhoto}
+                <img src={profile.photos.large !== null ? profile.photos.large : userPhoto}
                      alt={"User Avatar"}/>
                 <div>
-                    <span className={c.name}>{props.profile.fullName}</span>
+                    <span className={c.name}>{profile.fullName}</span>
                 </div>
                 <div>
-                    <span>{props.profile.aboutMe}</span>
+                    <span>{profile.aboutMe}</span>
                 </div>
 
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatus status={status} updateStatus={updateStatus}/>
 
 
             </div>
         </div>
     );
-};
+});
 
 export default PostInfo;

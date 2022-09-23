@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, FC, memo} from 'react';
 import c from "./Messages.module.css"
 import DialogUsers, {DialogsType} from "./DialogUsers/DialogUsers";
 import MessagesFromUsers, {MessageType} from "./MessagesFromUsers/MessagesFromUsers";
@@ -18,14 +18,14 @@ type DialogPageType = {
 }
 
 
-const Messages = (props: DialogPageType) => {
+const Messages:FC<DialogPageType> = memo (({addMessage, messages, dialogs, isAuth}) => {
 
     const addMFormMessage = (data: MessagesInputs) => {
-        props.addMessage(data.messagesForm)
+        addMessage(data.messagesForm)
     }
 
-    let dialUsers = props.dialogs.map(d => <DialogUsers name={d.name} id={d.id} img={d.img}/>)
-    let mesUsers = props.messages.map(m => <MessagesFromUsers text={m.text} id={m.id}/>)
+    let dialUsers = dialogs.map((d, index) => <DialogUsers key={index} name={d.name} id={d.id} img={d.img}/>)
+    let mesUsers = messages.map((m,index) => <MessagesFromUsers key={index} text={m.text} id={m.id}/>)
 
 
     return (
@@ -46,7 +46,7 @@ const Messages = (props: DialogPageType) => {
             </div>
         </div>
     );
-};
+});
 type MessagesFormPropsType = {
     onSubmit: (data: MessagesInputs) => void
 }
@@ -54,14 +54,14 @@ const MessagesForm = (props: MessagesFormPropsType) => {
     const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm<MessagesInputs>({
         mode: "onBlur"
     });
-     // const onSubmit: SubmitHandler<MessagesInputs> = (data) => {
-     //     console.log(data)
-     //     reset()
-     // };
 
+    const sendMessage = (data: MessagesInputs)=>{
+        props.onSubmit(data)
+        reset()
+    }
 
     return (
-        <form onSubmit={handleSubmit(props.onSubmit)} className={c.form}>
+        <form onSubmit={ handleSubmit(sendMessage)} className={c.form}>
 
             <textarea {...register("messagesForm", {
                 required: "Enter your message",

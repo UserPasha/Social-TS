@@ -1,0 +1,12 @@
+.pagesCount span {
+    margin: 3px;
+}
+.pagesCount span:hover {
+    background-color: #1f1b1b;
+    color:#76cec3;
+}
+.selected{
+    background-color: #76cec3;
+    font-weight: bold;
+    font-size: 110%;
+}

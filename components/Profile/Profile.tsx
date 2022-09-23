@@ -1,18 +1,18 @@
 import c from "./Profile.module.css"
 import PostsContainer from "./Posts/PostsContainer";
 import PostInfo from "./PostInfo";
-import React from "react";
+import React, {FC, memo} from "react";
 import {ProfilePropsType} from "./ProfileContainer";
 
 
-const Profile = (props: ProfilePropsType) => {
+const Profile :FC<ProfilePropsType> = memo(({profile, status, updateStatus, ...restProps}) => {
 
 
     return (
         <div className={c.profileWrapper}>
-            <PostInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+            <PostInfo profile={profile} status={status} updateStatus={updateStatus}/>
             <PostsContainer/>
         </div>
     );
-};
+});
 export default Profile;

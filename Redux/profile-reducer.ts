@@ -1,9 +1,9 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../API/api";
 
-const ADD_POST = "ADD-POST"
-const SET_USER_PROFILE = "SET_USER_PROFILE"
-const SET_STATUS = "SET_STATUS"
+const ADD_POST = "PROFILE/ADD-POST"
+const SET_USER_PROFILE = "PROFILE/SET_USER_PROFILE"
+const SET_STATUS = "PROFILE/SET_STATUS"
 
 export type PostType = {
     id: number
@@ -41,7 +41,7 @@ export type ProfilePageType = {
 }
 
 type AddPostActionType ={
-    type: "ADD-POST"
+    type: "PROFILE/ADD-POST"
     postText: string
 }
 
@@ -102,44 +102,38 @@ export const ProfileReducer = (state: ProfilePageType=initialState, action: Prof
 
 export const addPostAC = (postText: string):AddPostActionType => {
     return{
-        type: "ADD-POST", postText: postText
+        type: "PROFILE/ADD-POST", postText: postText
     }
 }
 
-export const setUserProfile = (profile:ProfileType):{ type: "SET_USER_PROFILE", profile:ProfileType} => {
+export const setUserProfile = (profile:ProfileType):{ type: "PROFILE/SET_USER_PROFILE", profile:ProfileType} => {
     return {
-        type: "SET_USER_PROFILE",
+        type: "PROFILE/SET_USER_PROFILE",
         profile
     }
 }
 export const setStatus = (status:string) =>{
     return {
-        type: "SET_STATUS",
+        type: "PROFILE/SET_STATUS",
         status
     } as const
 }
 
 export const userProfileThunkCreator = (id: number | string)=>{
-    return (dispatch: Dispatch) => {
-        usersAPI.userProfile(id)
-            .then(response => {
-                dispatch(setUserProfile(response.data));
-            })
+    return async (dispatch: Dispatch) => {
+       const response = await usersAPI.userProfile(id)
+        dispatch(setUserProfile(response.data));
     }
 }
 export const getProfileStatusThunkCreator = (id: number | string)=>{
-    return(dispatch: Dispatch)=>{
-        profileAPI.getStatus(id)
-            .then(res=>{
+    return async (dispatch: Dispatch)=>{
+       const res = await profileAPI.getStatus(id)
                 dispatch(setStatus(res.data))
-            })
     }
 }
-export const updateProfileStatusThunkCreator = (status:string)=> (dispatch: Dispatch)=>{
-    profileAPI.updateStatus(status)
-        .then(res=>{
+export const updateProfileStatusThunkCreator = (status:string)=> async (dispatch: Dispatch)=>{
+    const res = await profileAPI.updateStatus(status)
             if(res.data.resultCode===0){
                 dispatch(setStatus(status))
             }
-        })
 }

@@ -1,5 +1,4 @@
 import c from "./Post.module.css"
-import StateOfSoc from "../../../../Redux/stateOfSoc";
 type PostType={
     id: number
     title: string

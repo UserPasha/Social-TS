@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -10,39 +9,38 @@ import MessagesContainer from "./components/Messages/MessagesContainer";
 import UsersComponentContainer from './components/Users/UsersComponentContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from "./Common/Components/LoginPage";
-import {AppRootStateType} from "./Redux/redux-store";
+import LoginPage from "./Common/Components/Login/LoginPage";
+import {AppDispatch, AppRootStateType} from "./Redux/redux-store";
 import {compose} from "redux";
-import {connect, useSelector} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./Redux/app-reducer";
-import {Navigate} from "react-router-dom";
+
 import {withRouter} from "./Common/WithRouterSelf";
 import {Rings} from 'react-loader-spinner'
 
 
-// type stateType = {
-//     isInitialize: () => void
-// }
-// type AppPropsType = mapStateToPropsType & mapDispatchToProps
-// type mapDispatchToProps = {
-//     initialize: ()=> void
-// }
-// type mapStateToPropsType = {
-//     isInitialize: boolean
-// }
 
-function App() {
-    //const isInitialize = useSelector<AppRootStateType, boolean>((state)=> state.app.isInitialize)
-    //const isAuth = useSelector<AppRootStateType, boolean>((state)=> state.auth.isAuth)
+type AppPropsType = mapStateToPropsType & mapDispatchToProps
+type mapDispatchToProps = {
+    initialize: ()=> void
+}
+type mapStateToPropsType = {
+    isInitialize: boolean
+}
+
+function App(props:AppPropsType) {
+    let dispatch = useDispatch<AppDispatch>()
+    const isInitialize = useSelector<AppRootStateType, boolean>((state)=> state.app.isInitialize)
+    const isAuth = useSelector<AppRootStateType, boolean>((state)=> state.auth.isAuth)
     useEffect(() => {
-        initializeApp()
+        dispatch(initializeApp())
 
-    }, [])
+    }, [isInitialize])
 
-    // if (!isInitialize) {
-    //     return <Rings color="#00BFFF" height={80} width={80}/>
-    //
-    // }
+    if (!isInitialize) {
+        return <Rings color="#00BFFF" height={80} width={80}/>
+
+    }
 
     return (
         <div className={"appWrapper"}>
@@ -64,12 +62,13 @@ function App() {
     );
 }
 
-// const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
-//     return {
-//         isInitialize: state.app.isInitialize
-//     }
-// }
+const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
+    return {
+        isInitialize: state.app.isInitialize
+    }
+}
 
-export default App
+export default connect(mapStateToProps, {initialize: initializeApp})(App)
+//export default App
 //export default compose(connect(mapStateToProps, {initialize: initializeApp}), withRouter)(App);
 

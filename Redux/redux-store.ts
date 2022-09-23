@@ -15,8 +15,7 @@ let rootReducer = combineReducers({
     sidebar: SidebarReducer,
     usersPage: UsersReducer,
     auth: authReducer,
-    app: appReducer,
-    form: formReducer
+    app: appReducer
 })
 // type of all application
 export type AppRootStateType = ReturnType<typeof rootReducer>

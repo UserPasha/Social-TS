@@ -16,6 +16,14 @@ import {Rings} from 'react-loader-spinner'
 import UserPresentationComponent from './UserPresentationComponent'
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/withAuthRediresct";
+import {
+    getCurrentPage,
+    getIsLoading,
+    getPaigeSize,
+    getRequestToFollowIdArray,
+    getTotalUsers,
+    getUsers
+} from "../../Redux/users-selectors";
 
 
 
@@ -74,12 +82,12 @@ const UserComponentContainer = (props: UserPropsType) => {
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsers: state.usersPage.totalUsers,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
-        requestToFollowIdArray: state.usersPage.requestToFollowIdArray
+        users: getUsers(state),
+        pageSize: getPaigeSize(state),
+        totalUsers: getTotalUsers(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
+        requestToFollowIdArray: getRequestToFollowIdArray(state)
     }
 }
 

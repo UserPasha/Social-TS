@@ -42,6 +42,7 @@ const ProfileContainer = (props: ProfilePropsType) => {
         props.getStatus(id)
 
     }, [])
+
     return (
         <Profile {...props} profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
     );

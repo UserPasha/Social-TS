@@ -16,14 +16,14 @@ export type PostType = {
 }
 type PostTypeProps = {
     posts: Array<PostType>
-    addPost: (data:Inputs) => void
+    addPost: (data: Inputs) => void
 }
 
 const Posts = (props: PostTypeProps) => {
 
-const addPostMessage=(data:Inputs)=>{
-    props.addPost(data)
-}
+    const addPostMessage = (data: Inputs) => {
+        props.addPost(data)
+    }
     let postsMap = props.posts.map(el => <Post key={el.id}
                                                id={el.id}
                                                title={el.title}
@@ -46,27 +46,32 @@ const addPostMessage=(data:Inputs)=>{
     );
 };
 type PostFormPropsType = {
-    onSubmit: (data:Inputs)=> void
+    onSubmit: (data: Inputs) => void
 }
 const PostsForm = (props: PostFormPropsType) => {
-    const {register, handleSubmit,  formState: {errors, isValid}} = useForm<Inputs>({
+    const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm<Inputs>({
         mode: "onBlur"
     });
-   // const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    const sendPost = (data: Inputs) => {
+        props.onSubmit(data)
+        reset()
+    }
 
     return (
-        <form onSubmit={handleSubmit(props.onSubmit)} className={c.form}>
+        <form onSubmit={handleSubmit(sendPost)} className={c.form}>
 
-            <textarea {...register("postFormText", {required: "Enter your message",
+            <textarea {...register("postFormText", {
+                required: "Enter your message",
                 minLength: {
                     value: 2,
                     message: "Your message should be more than 2 symbols"
-                }})} />
+                }
+            })} />
             {errors?.postFormText && <div className={c.error}>
-             <span>{errors?.postFormText?.message||"Error"}</span>
+                <span>{errors?.postFormText?.message || "Error"}</span>
             </div>}
             <div>
-                <button disabled={!isValid}> Send </button>
+                <button disabled={!isValid}> Send</button>
             </div>
         </form>
     )

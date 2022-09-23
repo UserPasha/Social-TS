@@ -1,9 +1,9 @@
 import {authUserData, setAuthUserDatatype} from "./auth-reducer";
-import {Dispatch} from "redux";
+
 import {AppDispatch} from "./redux-store";
 
 
-const SET_SUCCESS_INITIALIZED = 'SET_SUCCESS_INITIALIZED'
+const SET_SUCCESS_INITIALIZED = 'APP/SET_SUCCESS_INITIALIZED'
 
 type AppActionType = ReturnType<typeof initializedSuccess>
 
@@ -39,5 +39,3 @@ export const initializeApp = () => {
             })
     }
 }
-
-//export type ThunkDispatch = Dispatch<ActionType | setAuthUserDatatype>

@@ -1,5 +1,5 @@
 
-const ADD_MESSAGE = "ADD-MESSAGE"
+const ADD_MESSAGE = "DIALOGS/ADD-MESSAGE"
 
 
 export type DialogsType = {
@@ -16,7 +16,7 @@ export type DialogPageType = {
     messages: Array<MessageType>
 }
 type AddMessageActionType ={
-    type: "ADD-MESSAGE"
+    type: "DIALOGS/ADD-MESSAGE"
     messageText: string
 }
 
@@ -78,7 +78,7 @@ export const DialogReducer = (state=initialState, action: DialogsActionType ): D
 
 export const addMessageAC = (messageText: string):AddMessageActionType => {
     return{
-        type: "ADD-MESSAGE", messageText: messageText
+        type: "DIALOGS/ADD-MESSAGE", messageText: messageText
     }
 }
 

@@ -2,13 +2,13 @@ import {Dispatch} from "redux";
 import {usersAPI} from "../API/api";
 
 
-const FOLLOW = "FOLLOW"
-const UNFOLLOW = "UNFOLLOW"
-const SET_USERS = "SET_USERS"
-const GET_CURRENT_PAGE = "GET_CURRENT_PAGE"
-const SET_TOTAL_USER_LIST = "SET_TOTAL_USER_LIST"
-const IS_LOADING = "IS_LOADING"
-const REQUEST_TO_FOLLOW = "REQUEST_TO_FOLLOW"
+const FOLLOW = "USER/FOLLOW"
+const UNFOLLOW = "USER/UNFOLLOW"
+const SET_USERS = "USER/SET_USERS"
+const GET_CURRENT_PAGE = "USER/GET_CURRENT_PAGE"
+const SET_TOTAL_USER_LIST = "USER/SET_TOTAL_USER_LIST"
+const IS_LOADING = "USER/IS_LOADING"
+const REQUEST_TO_FOLLOW = "USER/REQUEST_TO_FOLLOW"
 
 
 export type LocationType = {
@@ -89,82 +89,78 @@ export const UsersReducer = (state: initialStateType = initialState, action: Use
     }
 }
 
-export const follow = (userId: string | number): { type: "FOLLOW", userId: string | number } => {
+export const follow = (userId: string | number): { type: "USER/FOLLOW", userId: string | number } => {
     return {
-        type: "FOLLOW", userId
+        type: "USER/FOLLOW", userId
     } as const
 }
-export const unFollow = (userId: string | number): { type: "UNFOLLOW", userId: string | number } => {
+export const unFollow = (userId: string | number): { type: "USER/UNFOLLOW", userId: string | number } => {
     return {
-        type: "UNFOLLOW", userId
+        type: "USER/UNFOLLOW", userId
     } as const
 }
-export const setUsers = (newUsers: Array<UserType>): { type: "SET_USERS", newUsers: Array<UserType> } => {
+export const setUsers = (newUsers: Array<UserType>): { type: "USER/SET_USERS", newUsers: Array<UserType> } => {
     return {
-        type: "SET_USERS", newUsers
+        type: "USER/SET_USERS", newUsers
     } as const
 }
-export const setCurrentPage = (currentPage: number): { type: "GET_CURRENT_PAGE", currentPage: number } => {
+export const setCurrentPage = (currentPage: number): { type: "USER/GET_CURRENT_PAGE", currentPage: number } => {
     return {
-        type: "GET_CURRENT_PAGE", currentPage
+        type: "USER/GET_CURRENT_PAGE", currentPage
     } as const
 }
-export const setTotalUsersList = (totalUserCount: number): { type: "SET_TOTAL_USER_LIST", userList: number } => {
+export const setTotalUsersList = (totalUserCount: number): { type: "USER/SET_TOTAL_USER_LIST", userList: number } => {
     return {
-        type: "SET_TOTAL_USER_LIST", userList: totalUserCount
+        type: "USER/SET_TOTAL_USER_LIST", userList: totalUserCount
     } as const
 }
-export const togglePreloader = (isLoadingBoolean: boolean): { type: "IS_LOADING", isLoadingBoolean: boolean } => {
+export const togglePreloader = (isLoadingBoolean: boolean): { type: "USER/IS_LOADING", isLoadingBoolean: boolean } => {
     return {
-        type: "IS_LOADING", isLoadingBoolean
+        type: "USER/IS_LOADING", isLoadingBoolean
     } as const
 }
-export const followRequester = (isLoadingBoolean: boolean, id: number | string): { type: "REQUEST_TO_FOLLOW", isLoadingBoolean: boolean, id: number | string } => {
+export const followRequester = (isLoadingBoolean: boolean, id: number | string): { type: "USER/REQUEST_TO_FOLLOW", isLoadingBoolean: boolean, id: number | string } => {
     return {
-        type: "REQUEST_TO_FOLLOW", isLoadingBoolean, id
+        type: "USER/REQUEST_TO_FOLLOW", isLoadingBoolean, id
     } as const
 }
 export const getUsersListThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(togglePreloader(true))
-        usersAPI.getListOfUsers(currentPage, pageSize).then(data => {
+        const data = await usersAPI.getListOfUsers(currentPage, pageSize)
             dispatch(togglePreloader(false))
             dispatch(setUsers(data.items));
             dispatch(setTotalUsersList(data.totalCount))
-        })
+
     }
 }
 export const getCurrentPageThunkCreator = (pageNumber: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(setCurrentPage(pageNumber));
         dispatch(togglePreloader(true))
-        usersAPI.getCurrentPage(pageNumber, pageSize).then(data => {
+        const data = await usersAPI.getCurrentPage(pageNumber, pageSize)
             dispatch(togglePreloader(false))
             dispatch(setUsers(data.items))
-        })
     }
 }
 export const unFollowUserThunkCreator = (id: number | string) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(followRequester(true, id))
-        usersAPI.unfollowUser(id).then(data => {
+        const data = await usersAPI.unfollowUser(id)
             if (data.resultCode === 0) {
                 dispatch(unFollow(id))
             }
             dispatch(followRequester(false, id))
-        })
     }
 }
 export const followUserThunkCreator = (id: number | string) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(followRequester(true, id))
 
-        usersAPI.followUser(id).then(data => {
+       const data = await  usersAPI.followUser(id)
             if (data.resultCode === 0) {
                 dispatch(follow(id))
             }
             dispatch(followRequester(false, id))
-
-        })
     }
 }
