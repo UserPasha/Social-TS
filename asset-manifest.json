@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Social-TS/static/css/main.c6ec1845.css",
+    "main.js": "/Social-TS/static/js/main.cc243d92.js",
+    "static/js/787.cfd8f164.chunk.js": "/Social-TS/static/js/787.cfd8f164.chunk.js",
+    "static/media/BgTropical.jpeg": "/Social-TS/static/media/BgTropical.e67a181f73eb05d9564b.jpeg",
+    "index.html": "/Social-TS/index.html",
+    "main.c6ec1845.css.map": "/Social-TS/static/css/main.c6ec1845.css.map",
+    "main.cc243d92.js.map": "/Social-TS/static/js/main.cc243d92.js.map",
+    "787.cfd8f164.chunk.js.map": "/Social-TS/static/js/787.cfd8f164.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6ec1845.css",
+    "static/js/main.cc243d92.js"
+  ]
+}
