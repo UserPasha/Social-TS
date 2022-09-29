@@ -5,10 +5,12 @@
 }
 .userDialogs{
     background-color: rgb(220, 161,163) ;
+    padding: 20px;
 }
 .messages{
     border-left: 1px dotted grey;
     background-color: rgb(233, 205, 209);
+    padding: 20px;
 }
 .error{
     width: 200px;

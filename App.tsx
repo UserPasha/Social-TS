@@ -16,7 +16,8 @@ import {connect, useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./Redux/app-reducer";
 
 import {withRouter} from "./Common/WithRouterSelf";
-import {Rings} from 'react-loader-spinner'
+import {Rings} from "react-loader-spinner";
+
 
 
 
@@ -38,7 +39,7 @@ function App(props:AppPropsType) {
     }, [isInitialize])
 
     if (!isInitialize) {
-        return <Rings color="#00BFFF" height={80} width={80}/>
+        return <Rings color="#FFF" height={80} width={80}/>
 
     }
 
@@ -71,4 +72,3 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 export default connect(mapStateToProps, {initialize: initializeApp})(App)
 //export default App
 //export default compose(connect(mapStateToProps, {initialize: initializeApp}), withRouter)(App);
-

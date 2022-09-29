@@ -1,12 +1,37 @@
+.pagesCount{
+    min-width: 100px;
+    height: 50px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .pagesCount span {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     margin: 3px;
+    line-height: 50px;
+    text-align: center;
+
 }
 .pagesCount span:hover {
     background-color: #1f1b1b;
-    color:#76cec3;
+    color: rgb(233, 205, 209);
+    cursor: pointer;
 }
 .selected{
-    background-color: #76cec3;
+    background-color: #bb4d53;
     font-weight: bold;
     font-size: 110%;
+    border: 1px solid #1f1b1b;
+}
+.pagesCount button {
+    margin: 0 10px;
+    height: 40px;
+    width: 80px;
+    border-radius: 20px;
+    background: #bb4d53;
+    cursor: pointer;
 }

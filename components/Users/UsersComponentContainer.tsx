@@ -11,8 +11,6 @@ import {
 } from "../../Redux/users-reducer";
 import {AppRootStateType} from "../../Redux/redux-store";
 import React from "react";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import {Rings} from 'react-loader-spinner'
 import UserPresentationComponent from './UserPresentationComponent'
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/withAuthRediresct";
@@ -63,7 +61,6 @@ const UserComponentContainer = (props: UserPropsType) => {
     }
     return (
         <>
-            {props.isLoading ? <Rings color="#00BFFF" height={80} width={80}/> : null}
             <UserPresentationComponent totalUsers={props.totalUsers}
                                        pageSize={props.pageSize}
                                        currentPage={props.currentPage}

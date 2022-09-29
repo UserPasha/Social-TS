@@ -20,49 +20,44 @@ const User: FC<UserPropsType> = (
     }) => {
     return (
         <div className={c.wrapper}>
-            <span>
-                <div>
+            <div className={c.infoWrapper}>
+                <div className={c.generalInformation}>
+                    <div className={c.name}>{userItem.name}</div>
+                    <div className={c.status}>{userItem.status}</div>
+                </div>
+                <div className={c.imageWrapper}>
                     <NavLink to={'/profile/' + userItem.id}>
                         <img src={userItem.photos?.small !== null ? userItem.photos!.small : userPhoto}
                              alt={'Avatar image'}/>
                     </NavLink>
 
-                        </div>
-                        <div>
-                            {userItem.followed
-                                ?
+                </div>
+                <div className={c.buttonWrapper}>
+                    {userItem.followed
+                        ?
+                        <button disabled={requestToFollowIdArray.some(id => id === userItem.id)}
+                                onClick={() => {
+                                    unFollowUser(userItem.id)
+                                }}>UNFOLLOW
+                        </button>
+                        :
+                        <button disabled={requestToFollowIdArray.some(id => id === userItem.id)}
+                                onClick={() => {
+                                    followUser(userItem.id)
+                                }}>FOLLOW
+                        </button>}
+                </div>
 
-
-                                <button disabled={requestToFollowIdArray.some(id => id === userItem.id)}
-                                        onClick={() => {
-                                            unFollowUser(userItem.id)
-
-
-                                        }}>Unfollow</button>
-                                :
-
-                                <button disabled={requestToFollowIdArray.some(id => id === userItem.id)}
-                                        onClick={() => {
-                                            followUser(userItem.id)
-
-
-                                        }}>follow</button>}
-                        </div>
-                    </span>
-                 <span>
-                    <span>
-                      <div>{userItem.name}</div>
-                      <div>{userItem.status}</div>
-                   </span>
-                        <span>
+            </div>
+            <div className={c.otherInformation}>
                             <div>
                                 {"m.location.country"}
                             </div>
                             <div>
                                 {"m.location.city"}
                             </div>
-                        </span>
-                 </span>
+            </div>
+
 
         </div>)
 

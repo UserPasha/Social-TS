@@ -1,14 +1,38 @@
 .header{
     grid-area: h;
+    display: flex;
+    justify-content: space-between;
     border: black solid 1px;
     background-color: rgb(223, 119, 125);
 }
+.loading{
+    width: 80px;
+    height: 80px;
+    position: relative;
+    top: -10px;
+    left: -350px;
+}
 .header img{
-    max-width: 60px;
+    max-width: 58px;
 }
 .login{
     float: right;
     margin: 20px 30px 0 0;
+}
+.login button{
+    position: relative;
+    top: -5px;
+    height: 30px;
+    width: 100px;
+    border-radius: 20px;
+    background: #bb4d53;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.loginName{
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 10px;
 }
 .login a{
     font-size: 20px;

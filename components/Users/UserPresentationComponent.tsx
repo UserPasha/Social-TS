@@ -31,7 +31,7 @@ const UserPresentationComponent: FC<UserPresentationPropsType> = memo((
         requestToFollowIdArray
     }) => {
 
-
+console.log(users)
     return (
         <div className={c.wrapper}>
             <Pagination totalUsers={totalUsers}
@@ -47,6 +47,11 @@ const UserPresentationComponent: FC<UserPresentationPropsType> = memo((
                                               unFollowUser={unFollowUser}/>
                 )
             }
+            <Pagination totalUsers={totalUsers}
+                        pageSize={pageSize}
+                        currentPage={currentPage}
+                        onPageHandler={onPageHandler}
+            />
         </div>)
 });
 

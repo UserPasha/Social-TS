@@ -1,13 +1,22 @@
-.profileWrapper .bGImage img{
-    max-width: 600px;
+.profileWrapper .bGImage {
+    width: 800px;
+    height: 500px;
+    margin: 0 auto;
 }
-.cover{
+
+.profileWrapper .bGImage img {
+    max-width: 800px;
+}
+
+.cover {
     margin-left: 20px;
 }
-.cover img{
+
+.cover img {
     max-width: 300px;
 }
-.name{
+
+.name {
     font-size: 30px;
     font-weight: bolder;
 }

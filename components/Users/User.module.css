@@ -1,3 +1,54 @@
-.wrapper img{
+.wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: rgb(223, 119, 125);
+}
+
+.wrapper .infoWrapper {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.wrapper img {
+    /*padding: 15px 0 0 50px;*/
     max-width: 150px;
+    margin: 10px 0;
+}
+
+/*.wrapper .buttonWrapper,*/
+/*.wrapper .generalInformation {*/
+/*    width: 100%;*/
+/*    min-height: 20px;*/
+/*    padding-left: 50px;*/
+
+/*}*/
+.wrapper .generalInformation{
+  text-align: center;
+}
+.wrapper .generalInformation .name {
+    font-size: 30px;
+    font-weight: bold;
+}
+.wrapper .generalInformation .status{
+    font-size: 20px;
+    font-weight: lighter;
+}
+.buttonWrapper button{
+    height: 40px;
+    width: 140px;
+    border-radius: 20px;
+    background: #bb4d53;
+    box-shadow:  10px -10px 20px #cf6f74,
+    -10px 10px 20px #ef7f86;
+    cursor: pointer;
+}
+.otherInformation{
+    margin-top: 50px;
 }
