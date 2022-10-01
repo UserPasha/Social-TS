@@ -38,6 +38,16 @@ export const profileAPI = {
     },
     updateStatus(status: string) {
         return instance.put("profile/status", {status: status})
+    },
+    saveImage(image: HTMLImageElement){
+        // let Data = new FormData()
+        // Data.append("image", image)
+        //const image: HTMLImageElement = new Image()
+        return instance.put('profile/photo', image, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 

@@ -4,6 +4,7 @@ import {profileAPI, usersAPI} from "../API/api";
 const ADD_POST = "PROFILE/ADD-POST"
 const SET_USER_PROFILE = "PROFILE/SET_USER_PROFILE"
 const SET_STATUS = "PROFILE/SET_STATUS"
+const SAVE_IMAGE = 'PROFILE/SAVE_IMAGE'
 
 export type PostType = {
     id: number
@@ -28,7 +29,7 @@ type photosType = {
 export type ProfileType = {
     aboutMe: string
     fullName: string
-    lookingForAJob:boolean
+    lookingForAJob: boolean
     lookingForAJobDescription: string
     userId: number
     contacts: contactsType
@@ -40,7 +41,7 @@ export type ProfilePageType = {
     status: string
 }
 
-type AddPostActionType ={
+type AddPostActionType = {
     type: "PROFILE/ADD-POST"
     postText: string
 }
@@ -48,12 +49,14 @@ type AddPostActionType ={
 
 type SetUserProfile = ReturnType<typeof setUserProfile>
 type setStatusProfile = ReturnType<typeof setStatus>
+type setAvatarProfile = ReturnType<typeof setAvatar>
 
 export type ProfileActionType = AddPostActionType
     | SetUserProfile
     | setStatusProfile
+    | setAvatarProfile
 
-let initialState:ProfilePageType = {
+let initialState: ProfilePageType = {
     profile: null,
     status: "",
     posts: [
@@ -75,8 +78,8 @@ let initialState:ProfilePageType = {
     ]
 }
 
-export const ProfileReducer = (state: ProfilePageType=initialState, action: ProfileActionType)=>{
-    switch (action.type){
+export const ProfileReducer = (state: ProfilePageType = initialState, action: ProfileActionType) => {
+    switch (action.type) {
         case ADD_POST:
             let newPost = {
                 id: 3,
@@ -84,56 +87,73 @@ export const ProfileReducer = (state: ProfilePageType=initialState, action: Prof
                 likes: 0,
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb2U8s1f4zV-OxqFBIZFTpbmluCxwkngs8yA&usqp=CAU"
             }
-            return {...state,
+            return {
+                ...state,
                 textForPost: "",
-                posts: [...state.posts, newPost]}
+                posts: [...state.posts, newPost]
+            }
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
-        case SET_STATUS: return {
-            ...state,
-            status: action.status
-        }
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
+        case SAVE_IMAGE:
+            return { ...state, profile: {...state.profile, photos: action.image }}
         default:
             return state
     }
 }
 
 
-
-export const addPostAC = (postText: string):AddPostActionType => {
-    return{
+export const addPostAC = (postText: string): AddPostActionType => {
+    return {
         type: "PROFILE/ADD-POST", postText: postText
     }
 }
 
-export const setUserProfile = (profile:ProfileType):{ type: "PROFILE/SET_USER_PROFILE", profile:ProfileType} => {
+export const setUserProfile = (profile: ProfileType): { type: "PROFILE/SET_USER_PROFILE", profile: ProfileType } => {
     return {
         type: "PROFILE/SET_USER_PROFILE",
         profile
     }
 }
-export const setStatus = (status:string) =>{
+export const setStatus = (status: string) => {
     return {
         type: "PROFILE/SET_STATUS",
         status
     } as const
 }
 
-export const userProfileThunkCreator = (id: number | string)=>{
+export const setAvatar = (image: HTMLImageElement) => {
+    return {
+        type: 'PROFILE/SAVE_IMAGE',
+        image
+    } as const
+}
+
+export const userProfileThunkCreator = (id: number | string) => {
     return async (dispatch: Dispatch) => {
-       const response = await usersAPI.userProfile(id)
+        const response = await usersAPI.userProfile(id)
         dispatch(setUserProfile(response.data));
     }
 }
-export const getProfileStatusThunkCreator = (id: number | string)=>{
-    return async (dispatch: Dispatch)=>{
-       const res = await profileAPI.getStatus(id)
-                dispatch(setStatus(res.data))
+export const getProfileStatusThunkCreator = (id: number | string) => {
+    return async (dispatch: Dispatch) => {
+        const res = await profileAPI.getStatus(id)
+        dispatch(setStatus(res.data))
     }
 }
-export const updateProfileStatusThunkCreator = (status:string)=> async (dispatch: Dispatch)=>{
+export const updateProfileStatusThunkCreator = (status: string) => async (dispatch: Dispatch) => {
     const res = await profileAPI.updateStatus(status)
-            if(res.data.resultCode===0){
-                dispatch(setStatus(status))
-            }
+    if (res.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
+}
+export const saveAvatarThunkCreator = (image: HTMLImageElement) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.saveImage(image)
+    if (res.data.resultCode === 0){
+        dispatch(setAvatar(image))
+    }
 }

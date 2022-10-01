@@ -15,7 +15,7 @@ type mapDispatchToPropsType = {
 
 let mapStateToProps=(state: AppRootStateType):mapStateToPropsType=>{
     return{
-        posts: state.profilePage.posts,
+        posts: state.profilePage["posts"],
     }
 }
 let mapDispatchToProps=(dispatch: Dispatch):mapDispatchToPropsType=>{

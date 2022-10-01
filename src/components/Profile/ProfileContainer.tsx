@@ -4,7 +4,7 @@ import {AppRootStateType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
 import {
     getProfileStatusThunkCreator,
-    ProfileType,
+    ProfileType, saveAvatarThunkCreator,
     updateProfileStatusThunkCreator,
     userProfileThunkCreator
 } from "../../Redux/profile-reducer";
@@ -24,6 +24,7 @@ type mapDispatchToPropsType = {
     getUserProfile:(id: string | number) => void
     getStatus:(id: string | number) => void
     updateStatus:(status: string) => void
+    saveAvatar:(image: HTMLImageElement)=> void
 }
 
 
@@ -44,13 +45,17 @@ const ProfileContainer = (props: ProfilePropsType) => {
     }, [])
 
     return (
-        <Profile {...props} profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
+        <Profile {...props}
+                 profile={props.profile}
+                 status={props.status}
+                 updateStatus={props.updateStatus}
+                 saveAvatar={props.saveAvatar}/>
     );
 };
 
 let mapStateToProps = (state: AppRootStateType):mapStateToPropsType => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
+    profile: state.profilePage["profile"],
+    status: state.profilePage["status"],
     userDataId: state.auth.userId
 })
 
@@ -60,7 +65,8 @@ export default compose <React.ComponentType>(
     connect(mapStateToProps,
         {getUserProfile: userProfileThunkCreator,
         getStatus: getProfileStatusThunkCreator,
-        updateStatus: updateProfileStatusThunkCreator}),
+        updateStatus: updateProfileStatusThunkCreator,
+        saveAvatar: saveAvatarThunkCreator}),
     withRouter,
     WithAuthRedirect
 )(ProfileContainer)

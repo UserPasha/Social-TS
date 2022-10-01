@@ -1,0 +1,113 @@
+.wrapper {
+    width: 800px;
+    min-height: 1000px;
+    border: 1px solid white;
+}
+
+.wrapper .game {
+    width: 800px;
+    min-height: 900px;
+    margin: 10px auto;
+}
+
+.wrapper .game .title {
+    width: 500px;
+    height: 150px;
+    margin: 10px auto;
+    text-align: center;
+    background-color: #1f1b1b;
+    border-radius: 20px;
+    color: white;
+    font-size: 24px;
+
+}
+.attemptsWrapper{
+    width: 780px;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px auto;
+}
+.wrapper .game .attempts{
+    width: 50px;
+    height: 200px;
+}
+.attemptItem{
+    width: 50px;
+    height: 50px;
+    background: green;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+.wrapper .game .answer {
+    display: flex;
+}
+
+.wrapper .game .score {
+    display: flex;
+    width: 760px;
+    height: 100px;
+    background-color: white;
+    border-radius: 20px;
+    margin: 10px auto;
+    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.wrapper .game .answer .answerTitle {
+    width: 400px;
+    height: 100px;
+    margin: 10px auto;
+    text-align: center;
+    background-color: #bb4d53;
+    border-radius: 20px;
+    font-size: 30px;
+    line-height: 90px;
+}
+
+.wrapper .game .answer .amount {
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+    text-align: center;
+    background-color: #bb4d53;
+    border-radius: 20px;
+    font-size: 30px;
+    line-height: 90px;
+}
+
+.wrapper .game .title p {
+    margin: 20px auto;
+}
+
+.name {
+    font-size: 30px;
+    padding: 20px;
+}
+.vs{
+    font-size: 40px;
+    font-weight: bolder;
+    color: #bb4d53;
+}
+
+.scoreNumbers {
+    width: 160px;
+    height: 60px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #1f1b1b;
+    margin: 10px auto;
+}
+.score button{
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+}
+.nextButton{
+    display: block;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 10px auto;
+}
