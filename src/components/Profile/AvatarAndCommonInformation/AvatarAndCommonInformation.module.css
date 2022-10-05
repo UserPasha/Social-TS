@@ -1,0 +1,20 @@
+.bGImage {
+    width: 800px;
+    height: 500px;
+    margin: 0 auto;
+}
+.bGImage img {
+    max-width: 800px;
+}
+.cover {
+    margin-left: 20px;
+}
+
+.cover img {
+    max-width: 300px;
+}
+
+.name {
+    font-size: 30px;
+    font-weight: bolder;
+}

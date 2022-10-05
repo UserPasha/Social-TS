@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../API/api";
+import {initialStateType} from "./users-reducer";
+import {AppDispatch} from "./redux-store";
 
 const ADD_POST = "PROFILE/ADD-POST"
 const SET_USER_PROFILE = "PROFILE/SET_USER_PROFILE"
@@ -155,5 +157,12 @@ export const saveAvatarThunkCreator = (image: HTMLImageElement) => async (dispat
     const res = await profileAPI.saveImage(image)
     if (res.data.resultCode === 0){
         dispatch(setAvatar(image))
+    }
+}
+export const saveProfileThunkCreator = (data:any) => async (dispatch: AppDispatch, getState: ()=> any) =>{
+    const userId = getState().auth.userId
+    let response = await profileAPI.saveProfileInfo(data)
+    if (response.data.resultCode === 0){
+        dispatch(userProfileThunkCreator(userId))
     }
 }

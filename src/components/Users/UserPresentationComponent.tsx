@@ -31,7 +31,6 @@ const UserPresentationComponent: FC<UserPresentationPropsType> = memo((
         requestToFollowIdArray
     }) => {
 
-console.log(users)
     return (
         <div className={c.wrapper}>
             <Pagination totalUsers={totalUsers}

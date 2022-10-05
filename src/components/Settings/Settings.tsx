@@ -1,275 +1,169 @@
-import React, {useState, ChangeEvent} from 'react';
-import c from "./Settings.module.css"
+import React, {useState, DragEvent} from 'react';
+import { v1 } from 'uuid';
+import s from "./Settings.module.css"
 
+type cardsType = {
+    id: string
+    order: number
+    title: string
+}
 const Settings = () => {
-    type AnswersType = {
-        title: string,
-        answerOne: string,
-        answerTwo: string,
-        answerThree: string,
-        answerFour: string,
-        answerFive: string,
+    //ONE BOARD
+    const [cards, setCards] = useState<Array<cardsType>>([
+        {id: v1(), order: 1, title: "Card 1"},
+        {id: v1(), order: 2, title: "Card 2"},
+        {id: v1(), order: 3, title: "Card 3"},
+        {id: v1(), order: 4, title: "Card 4"},
+    ])
+    const [currentCard, setCurrentCart] = useState<cardsType | null>(null)
+    const dragStartHandler = (e: DragEvent<HTMLDivElement>, card: cardsType) => {
+        setCurrentCart(card)
     }
-    const AnswersArray: AnswersType[] = [
-        {
-            title: 'Назовите самый крупный город',
-            answerOne: 'Пекин',
-            answerTwo: 'Нью-Йорк',
-            answerThree: 'Москва',
-            answerFour: 'Минск',
-            answerFive: 'Смолевичи',
-        },
-        {
-            title: 'Назовите то, что люди носят, но скорее всего это подделка?',
-            answerOne: 'Брендовая одежда',
-            answerTwo: 'Волосы (парик)',
-            answerThree: 'Часы',
-            answerFour: 'Ресницы',
-            answerFive: 'Украшения',
-        },
-        {
-            title: 'Что вы сделаете первым делом, когда заселитесь в номер отеля?',
-            answerOne: 'Прыгну на кровать',
-            answerTwo: 'Осмотр комнаты',
-            answerThree: 'Включу телевизор',
-            answerFour: 'Посморю вид',
-            answerFive: 'Распакую багаж',
-        },
-        {
-            title: 'Когда актёр выигрывает престижную награду, кого он поблагодарит в своей речи?',
-            answerOne: 'Родетелей',
-            answerTwo: 'Бога',
-            answerThree: 'Фанатов',
-            answerFour: 'Партнеров по фильму',
-            answerFive: 'Режиссера',
-        },
-        {
-            title: 'Где был ваш первый поцелуй',
-            answerOne: 'В машине',
-            answerTwo: 'В кино',
-            answerThree: 'В школе',
-            answerFour: 'В парке',
-            answerFive: 'На вечеринке',
-        },
-        {
-            title: 'Назовите причину по которой вам нужно срочно снять штаны',
-            answerOne: 'Понос',
-            answerTwo: 'Они загорелись',
-            answerThree: 'Насекомые',
-            answerFour: 'Шпили-вили)',
-            answerFive: 'Испачкались/промокли',
-        },
-        {
-            title: 'Мы опросили 100 разведеных мужчин и женщин.' +
-                'закончите фразу: ' +
-                'У вас был развод без проблем, но вы не хотели бы видеть его(ее) ...',
-            answerOne: 'Родственников',
-            answerTwo: 'Пасию',
-            answerThree: 'Лицо',
-            answerFour: 'Друзей',
-            answerFive: 'Любимые передачи/привычки',
-        },
-        {
-            title: 'Что фокусник достал из шляпы?',
-            answerOne: 'Кролик',
-            answerTwo: 'Голубь',
-            answerThree: 'Цветок',
-            answerFour: 'Платки',
-            answerFive: 'Колоду карт',
-        },
-        {
-            title: 'Назовите фрукт, на которм подросток тренируется целоваться',
-            answerOne: 'Яблоко',
-            answerTwo: 'Персик',
-            answerThree: 'Апельсин',
-            answerFour: 'Арбуз',
-            answerFive: 'Слива',
-        },
-        {
-            title: 'Что может приземлиться на голову лысого человека и сразу соскользнуть?',
-            answerOne: 'Птичий помёт',
-            answerTwo: 'Капли воды/лёд',
-            answerThree: 'Птица',
-            answerFour: 'Парик',
-            answerFive: 'Лист(с дерева)',
-        },
-        {
-            title: 'Назовите место, где вы очень сильно ругаетесь матом',
-            answerOne: 'Дом',
-            answerTwo: 'Работа',
-            answerThree: 'Машина (в пробке)',
-            answerFour: 'Бар',
-            answerFive: 'Спортивная арена',
-        },
-        {
-            title: 'Назовите способ, которым девушка может флиртовать с мужчиной, ' +
-                'не вступая в физический контакт',
-            answerOne: 'Подмигнуть',
-            answerTwo: 'Улыбнуться',
-            answerThree: 'Облизнуть губы',
-            answerFour: 'Разговор/комплимент',
-            answerFive: 'Написать сообщение',
-        },
-        {
-            title: 'Мы опросили 100 женатых мужчин. Назовите ' +
-                'то, что делают девушку незабываемой',
-            answerOne: 'Лицо',
-            answerTwo: 'Характер',
-            answerThree: 'Тело',
-            answerFour: 'Голос',
-            answerFive: 'Запах',
-        },
-        {
-            title: 'Что может сказать девушка не превом свидании, ' +
-                'что может напугать мужчину',
-            answerOne: 'Я беременна/У меня есть дети',
-            answerTwo: 'Давай поженимся',
-            answerThree: 'Я тебя люблю',
-            answerFour: 'Я больна',
-            answerFive: 'Я замужем за бандитом',
-        },
-        {
-            title: 'Что может бросить учитель в разгеневаного ученика?',
-            answerOne: 'Ластик/Стирка',
-            answerTwo: 'Карандаш/Руска',
-            answerThree: 'Линейка',
-            answerFour: 'Книга',
-            answerFive: 'Мел',
+    const dragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {
+
+    }
+    const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
+        let element = e.target as HTMLDivElement
+        element.style.background = "white"
+    }
+    const dragOverHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        let element = e.target as HTMLDivElement
+        element.style.background = "lightBlue"
+    }
+    const dropHandler = (e: DragEvent<HTMLDivElement>, card: cardsType) => {
+        e.preventDefault()
+        setCards(cards.map(c => {
+            if (c.id === card.id) {
+                return {...c, order: currentCard?.order!}
+            }
+            if (c.id === currentCard?.id) {
+                return {...c, order: card.order}
+            }
+            return c
+        }))
+        let element = e.target as HTMLDivElement
+        element.style.background = "white"
+    }
+    const sortCards = (a: cardsType, b: cardsType) => {
+        if (a.order > b.order) {
+            return 1
+        } else {
+            return -1
         }
-    ]
-    const [answers, setAnswers] = useState<AnswersType>(AnswersArray[0])
-    const GetNextQuestion = () => {
-        setAnswers(AnswersArray[Math.floor(Math.random() * AnswersArray.length)])
     }
-    const [firstPlayerName, setFirstPlayerName] = useState<string>('ol')
-    const setFirstPlayerNameIn = (e: ChangeEvent<HTMLInputElement>) => {
-        setFirstPlayerName(e.target.value)
+    //THREE BOARDS
+    type itemsType = {
+        id:string,
+        title: string
     }
-    const [secondPlayerName, setSecondPlayerName] = useState<string>('lk')
-    const setSecondPlayerNameIn = (e: ChangeEvent<HTMLInputElement>) => {
-        setSecondPlayerName(e.target.value)
+    type boardType = {
+        id: string,
+        title: string,
+        items: itemsType[]
     }
-    const [mode, setMode] = useState<boolean>(false)
-    const [modeTwo, setModeTwo] = useState<boolean>(false)
-    const [firstPlayerScore, setFirstPlayerScore] = useState<number>(0)
-    const [secondPlayerScore, setSecondPlayerScore] = useState<number>(0)
-    const AddFirstPlayerScore = (amount: number) => {
-        setFirstPlayerScore(firstPlayerScore + amount)
+    const [board, setBoard] = useState<boardType[]>([
+        {id: v1(), title: "what", items:[{id:v1(), title: "Spain"},{id:v1(), title: "Turkey"},{id:v1(), title: "Bulgaria"}]},
+        {id: v1(), title: "who", items:[{id:v1(), title: "Poland"},{id:v1(), title: "Chech"},{id:v1(), title: "Hungary"}]},
+        {id: v1(), title: "which", items:[{id:v1(), title: "Canada"},{id:v1(), title: "Norway"},{id:v1(), title: "Romain"}]},
+    ])
+    const [currentBoard, setCurrentBoard] = useState<boardType|null>(null)
+    const [currentItem, setCurrentItem] = useState<itemsType| null>(null)
+    function onDragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+        e.preventDefault()
+        let element = e.target as HTMLDivElement
+        if(element.className === `${s.item}`){
+            element.style.boxShadow = "0 4px 3px gray"
+        }
     }
-    const AddSecondPlayerScore = (amount: number) => {
-        setSecondPlayerScore(secondPlayerScore + amount)
+    console.log("board", board)
+    console.log("currentBoard", currentBoard)
+
+    function onDragStartHandler(e: React.DragEvent<HTMLDivElement>, b: boardType, i: itemsType) {
+        setCurrentBoard(b)
+        setCurrentItem(i)
     }
 
+    function onDragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
+        let element = e.target as HTMLDivElement
+        element.style.boxShadow = "none"
+    }
+
+
+    function onDragEndHandler(e: React.DragEvent<HTMLDivElement>) {
+        let element = e.target as HTMLDivElement
+        element.style.boxShadow = "none"
+    }
+
+    function onDropHandler(e: React.DragEvent<HTMLDivElement>, b: boardType, i: itemsType) {
+        e.preventDefault()
+        const currentIndex = currentBoard?.items.indexOf(currentItem!)
+        currentBoard?.items.splice(currentIndex!, 1)
+        const dropIndex = b.items.indexOf(i)
+        b.items.splice(dropIndex+1, 0, currentItem!)
+        // @ts-ignore
+        setBoard(board.map(m=>{
+            if(m.id === b.id){
+                return b
+            }
+            if(m.id === currentBoard?.id){
+                return currentBoard
+            }
+            return m
+        }))
+    }
+
+    function onBoardDrop(e: React.DragEvent<HTMLDivElement>, b: boardType) {
+        b.items.push(currentItem!)
+        const currentIndex = currentBoard?.items.indexOf(currentItem!)
+        currentBoard?.items.splice(currentIndex!, 1)
+        // @ts-ignore
+        setBoard(board.map(m=>{
+            if(m.id === b.id){
+                return b
+            }
+            if(m.id === currentBoard?.id){
+                return currentBoard
+            }
+            return m
+        }))
+    }
 
     return (
-
-        <div className={c.wrapper}>
-            <div className={c.game}>
-                <div className={c.score}>
-
-                    <button onClick={() => {
-                        setMode(true)
-                    }}>FirstName
-                    </button>
-                    <button onClick={() => {
-                        setMode(false)
-                    }}>Save
-                    </button>
-                    {mode ? <input value={firstPlayerName} onChange={setFirstPlayerNameIn}/> :
-                        <span className={c.name}>{firstPlayerName}</span>}
-                    <span className={c.vs}>VS</span>
-                    {modeTwo ? <input value={secondPlayerName} onChange={setSecondPlayerNameIn}/> :
-                        <span className={c.name}>{secondPlayerName}</span>}
-                    <button onClick={() => {
-                        setModeTwo(true)
-                    }}>SecondName
-                    </button>
-                    <button onClick={() => {
-                        setModeTwo(false)
-                    }}>Save
-                    </button>
-
-
-                </div>
-                <div className={c.scoreNumbers}>
-                    {firstPlayerScore} : {secondPlayerScore}
-                </div>
-                <div className={c.attemptsWrapper}>
-                    <div className={c.attempts}>
-                        <div className={c.attemptItem}></div>
-                        <div className={c.attemptItem}></div>
-                        <div className={c.attemptItem}></div>
-                    </div>
-
-                    <div className={c.title}><p>{answers.title}</p></div>
-                    <div className={c.attempts}>
-                        <div className={c.attemptItem}></div>
-                        <div className={c.attemptItem}></div>
-                        <div className={c.attemptItem}></div>
-                    </div>
-
-                </div>
-
-                <div className={c.answer}>
-                    <div className={c.amount} onClick={() => {
-                        AddFirstPlayerScore(5)
-                    }}>5
-                    </div>
-                    <div className={c.answerTitle}>{answers.answerOne}</div>
-                    <div className={c.amount} onClick={() => {
-                        AddSecondPlayerScore(5)
-                    }}>5
-                    </div>
-                </div>
-                <div className={c.answer}>
-                    <div className={c.amount} onClick={() => {
-                        AddFirstPlayerScore(4)
-                    }}>4
-                    </div>
-                    <div className={c.answerTitle}>{answers.answerTwo}</div>
-                    <div className={c.amount} onClick={() => {
-                        AddSecondPlayerScore(4)
-                    }}>4
-                    </div>
-                </div>
-                <div className={c.answer}>
-                    <div className={c.amount} onClick={() => {
-                        AddFirstPlayerScore(3)
-                    }}>3
-                    </div>
-                    <div className={c.answerTitle}>{answers.answerThree}</div>
-                    <div className={c.amount} onClick={() => {
-                        AddSecondPlayerScore(3)
-                    }}>3
-                    </div>
-                </div>
-                <div className={c.answer}>
-                    <div className={c.amount} onClick={() => {
-                        AddFirstPlayerScore(2)
-                    }}>2
-                    </div>
-                    <div className={c.answerTitle}>{answers.answerFour}</div>
-                    <div className={c.amount} onClick={() => {
-                        AddSecondPlayerScore(2)
-                    }}>2
-                    </div>
-                </div>
-                <div className={c.answer}>
-                    <div className={c.amount} onClick={() => {
-                        AddFirstPlayerScore(1)
-                    }}>1
-                    </div>
-                    <div className={c.answerTitle}>{answers.answerFive}</div>
-                    <div className={c.amount} onClick={() => {
-                        AddSecondPlayerScore(1)
-                    }}>1
-                    </div>
-                </div>
+        <>
+            <div className={s.wrapper}>
+                {cards.sort(sortCards).map(c =>
+                    <div key={c.id}
+                         className={s.cards}
+                         draggable={true}
+                         onDragStart={(e) => dragStartHandler(e, c)}
+                         onDragLeave={(e) => dragLeaveHandler(e)}
+                         onDragEnd={(e) => dragEndHandler(e)}
+                         onDragOver={(e) => dragOverHandler(e)}
+                         onDrop={(e) => dropHandler(e, c)}>{c.title}</div>
+                )}
             </div>
-
-            <button onClick={GetNextQuestion} className={c.nextButton}>NEXT</button>
-
-        </div>
+            <div className={s.under}>
+                {board.map(b=>
+                    <div key={b.id}
+                         className={s.cards}
+                         onDragOver={(e)=>onDragOverHandler(e)}
+                         onDrop={(e)=>onBoardDrop(e, b)}
+                    >
+                        <div className={s.cardsTitle}>{b.title}</div>
+                        {b.items.map(i=>
+                        <div key={i.id} 
+                             className={s.item} 
+                             draggable={true}
+                             onDragOver={(e)=>onDragOverHandler(e)}
+                             onDragStart={(e)=>onDragStartHandler(e, b, i)}
+                             onDragLeave={(e)=>onDragLeaveHandler(e)}
+                             onDragEnd={(e)=>onDragEndHandler(e)}
+                             onDrop={(e)=>onDropHandler(e,b,i)}
+                        >{i.title}</div>)}
+                    </div>)}
+            </div>
+        </>
     );
 };
 

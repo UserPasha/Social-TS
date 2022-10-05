@@ -5,7 +5,16 @@ import React, {FC, memo} from "react";
 import {ProfilePropsType} from "./ProfileContainer";
 
 
-const Profile :FC<ProfilePropsType> = memo(({profile, status, updateStatus, saveAvatar,...restProps}) => {
+const Profile: FC<ProfilePropsType> = memo((
+    {
+        profile,
+        status,
+        updateStatus,
+        saveAvatar,
+        saveProfile,
+        isOwner,
+        ...restProps
+    }) => {
 
 
     return (
@@ -13,7 +22,9 @@ const Profile :FC<ProfilePropsType> = memo(({profile, status, updateStatus, save
             <PostInfo profile={profile}
                       status={status}
                       updateStatus={updateStatus}
-                      saveAvatar={saveAvatar}/>
+                      saveAvatar={saveAvatar}
+                      saveProfile={saveProfile}
+                      isOwner={isOwner}/>
             <PostsContainer/>
         </div>
     );
