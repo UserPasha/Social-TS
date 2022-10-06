@@ -1,5 +1,7 @@
 import c from "./Post.module.css"
-type PostType={
+import hearts from './../../../../Common/Images/hearts.png'
+
+type PostType = {
     id: number
     title: string
     likes: number
@@ -9,17 +11,20 @@ type PostType={
 const Post = (props: PostType) => {
 
     return (
-        <div className={c.item}>
-            <img
-                src={props.src}
-                alt="avatar"/>
-            {props.title}
-            <div>
-                <span>
-                like {props.likes}
-                 </span>
+        <>
+            <div className={c.item}>
+                <img
+                    src={props.src}
+                    alt="avatar"/>
+                <p>{props.title}</p>
+
             </div>
-        </div>
+            <div className={c.likes}>
+                <img src={hearts}/>
+                <div className={c.likesCount}>{props.likes}</div>
+
+            </div>
+        </>
     );
 };
 export default Post;

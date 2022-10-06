@@ -1,0 +1,51 @@
+.profileInformationWrapper {
+    display: flex;
+    width: 900px;
+    min-height: 400px;
+    justify-content: space-evenly;
+}
+
+.commonInformation,
+.description
+{
+    width: 350px;
+    min-height: 400px;
+    padding: 20px;
+    border: 1px solid #6b5858;
+    border-radius: 20px;
+    box-shadow:  -5px -5px 12px #6b5858;
+}
+
+/*.description {*/
+/*    width: 350px;*/
+/*    min-height: 400px;*/
+/*    padding: 20px;*/
+/*}*/
+
+.description .title {
+    text-align: center;
+}
+
+.commonInformation .request,
+.description .request {
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.commonInformation .response,
+.description .response {
+    margin-left: 10px;
+    font-size: 16px;
+}
+.editProfile{
+    display: flex;
+    justify-content: center;
+}
+.editProfile button {
+    height: 40px;
+    width: 140px;
+    border-radius: 20px;
+    background: #bb4d53;
+    cursor: pointer;
+    margin-top: 20px;
+}

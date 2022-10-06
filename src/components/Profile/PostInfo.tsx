@@ -2,7 +2,7 @@ import React, {FC, memo, ChangeEvent, useState} from 'react';
 import c from "./Profile.module.css";
 import {ProfileType} from "../../Redux/profile-reducer";
 import userPhoto from "../../Common/Images/users.png"
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import bgImage from './../../Common/Images/BgTropical.jpeg'
 import {Rings} from "react-loader-spinner";
 
@@ -20,17 +20,23 @@ type PostInfoPropsType = {
     isOwner: boolean
 }
 
-const PostInfo: FC<PostInfoPropsType> = memo(({profile, status, updateStatus, saveAvatar, isOwner, saveProfile}) => {
+const PostInfo: FC<PostInfoPropsType> = memo(({
+                                                  profile,
+                                                  status,
+                                                  updateStatus,
+                                                  saveAvatar,
+                                                  isOwner,
+                                                  saveProfile
+                                              }) => {
 
     const [mode, setMode] = useState<boolean>(false)
     const activate = () => {
         setMode(true)
     }
     const onSubmit = (data: any) => {
-        // @ts-ignore
-        saveProfile(data).then(() => {
-            setMode(false)
-        })
+
+        saveProfile(data)
+        setMode(false)
     }
     if (!profile) {
 
@@ -39,20 +45,22 @@ const PostInfo: FC<PostInfoPropsType> = memo(({profile, status, updateStatus, sa
     }
     return (
         <div className={c.InfoWrapper}>
-            <AvatarAndCommonInformation profile={profile}
-                                        status={status}
-                                        updateStatus={updateStatus}
-                                        saveAvatar={saveAvatar}
-                                        saveProfile={saveProfile}
-                                        isOwner={isOwner}/>
             <div className={c.information}>
                 {mode ?
                     <ProfileFormData onSubmit={onSubmit}
-                                     profile={profile}/>
+                                     profile={profile}
+                                     saveAvatar={saveAvatar}
+                                     status={status}
+                                     updateStatus={updateStatus}
+                                   />
                     :
                     <ProfileInformation profile={profile}
                                         isOwner={isOwner}
-                                        activate={activate}/>}
+                                        activate={activate}
+                                        status={status}
+                                        updateStatus={updateStatus}
+
+                    />}
             </div>
 
         </div>

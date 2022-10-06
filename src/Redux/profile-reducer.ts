@@ -7,6 +7,7 @@ const ADD_POST = "PROFILE/ADD-POST"
 const SET_USER_PROFILE = "PROFILE/SET_USER_PROFILE"
 const SET_STATUS = "PROFILE/SET_STATUS"
 const SAVE_IMAGE = 'PROFILE/SAVE_IMAGE'
+const SAVE_ERROR = 'PROFILE/SAVE_ERROR'
 
 export type PostType = {
     id: number
@@ -53,10 +54,12 @@ type SetUserProfile = ReturnType<typeof setUserProfile>
 type setStatusProfile = ReturnType<typeof setStatus>
 type setAvatarProfile = ReturnType<typeof setAvatar>
 
+
 export type ProfileActionType = AddPostActionType
     | SetUserProfile
     | setStatusProfile
     | setAvatarProfile
+
 
 let initialState: ProfilePageType = {
     profile: null,
@@ -102,7 +105,7 @@ export const ProfileReducer = (state: ProfilePageType = initialState, action: Pr
                 status: action.status
             }
         case SAVE_IMAGE:
-            return { ...state, profile: {...state.profile, photos: action.image }}
+            return {...state, profile: {...state.profile, photos: action.image}}
         default:
             return state
     }
@@ -155,14 +158,16 @@ export const updateProfileStatusThunkCreator = (status: string) => async (dispat
 }
 export const saveAvatarThunkCreator = (image: HTMLImageElement) => async (dispatch: Dispatch) => {
     const res = await profileAPI.saveImage(image)
-    if (res.data.resultCode === 0){
+    if (res.data.resultCode === 0) {
         dispatch(setAvatar(image))
     }
 }
-export const saveProfileThunkCreator = (data:any) => async (dispatch: AppDispatch, getState: ()=> any) =>{
+export const saveProfileThunkCreator = (data: any) => async (dispatch: AppDispatch, getState: () => any) => {
+
     const userId = getState().auth.userId
     let response = await profileAPI.saveProfileInfo(data)
-    if (response.data.resultCode === 0){
+    console.log(response);
+    if (response.data.resultCode === 0) {
         dispatch(userProfileThunkCreator(userId))
     }
 }

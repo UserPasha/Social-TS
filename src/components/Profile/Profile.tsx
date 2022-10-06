@@ -24,7 +24,8 @@ const Profile: FC<ProfilePropsType> = memo((
                       updateStatus={updateStatus}
                       saveAvatar={saveAvatar}
                       saveProfile={saveProfile}
-                      isOwner={isOwner}/>
+                      isOwner={isOwner}
+                     />
             <PostsContainer/>
         </div>
     );

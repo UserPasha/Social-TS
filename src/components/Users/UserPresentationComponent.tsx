@@ -33,11 +33,6 @@ const UserPresentationComponent: FC<UserPresentationPropsType> = memo((
 
     return (
         <div className={c.wrapper}>
-            <Pagination totalUsers={totalUsers}
-                        pageSize={pageSize}
-                        currentPage={currentPage}
-                        onPageHandler={onPageHandler}
-            />
             {
                 users.map((m, index) => <User key={m.id}
                                               userItem={m}

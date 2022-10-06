@@ -1,4 +1,5 @@
 import React, {ChangeEvent, FC, memo, useState} from 'react';
+import c from './ProfileStatus.module.css'
 
 type ProfileStatusPropsType = {
     status: string
@@ -32,7 +33,7 @@ const ProfileStatus: FC<ProfileStatusPropsType> = memo(({status, updateStatus}) 
     return (
         <div>
             {!mode &&
-                <div>
+                <div className={c.statusWrapper}>
                         <span onDoubleClick={StatusChanger}>
                             {localStatus ? localStatus : "----"}
                         </span>

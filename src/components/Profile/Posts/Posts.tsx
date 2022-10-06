@@ -32,16 +32,12 @@ const Posts = (props: PostTypeProps) => {
 
 
     return (
-        <div>
-            <div>
-                <PostsForm onSubmit={addPostMessage}/>
-
-            </div>
-
+        <div className={c.postsContainerWrapper}>
             Posts:
             {postsMap}
-
-
+            <div className={c.sendPost}>
+                <PostsForm onSubmit={addPostMessage}/>
+            </div>
         </div>
     );
 };

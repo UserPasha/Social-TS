@@ -2,30 +2,43 @@ import React, {FC} from 'react';
 import c from './ProfileInformation.module.css'
 import {ProfileType} from "../../../Redux/profile-reducer";
 import {Contacts} from "../Contacts/Contacts";
+import {AvatarAndCommonInformation} from "../AvatarAndCommonInformation/AvatarAndCommonInformation";
 
 type ProfileInformationType = {
     profile: ProfileType | null
     isOwner: boolean
     activate: ()=>void
+    status: string
+    updateStatus: (status: string) => void
 }
-export const ProfileInformation:FC<ProfileInformationType> = ({profile, isOwner, activate}) => {
+export const ProfileInformation:FC<ProfileInformationType> = ({profile, isOwner, activate, status, updateStatus}) => {
     return (
-        <>
-            {isOwner&& <div><button onClick={activate}>Edit</button></div>}
-            <div>
-                <span className={c.request}>About me: </span>
-                <span className={c.response}>{profile?.aboutMe}</span>
+        <div className={c.profileInformationWrapper}>
+            <div className={c.commonInformation}>
+            <AvatarAndCommonInformation profile={profile}
+                                        status={status}
+                                        updateStatus={updateStatus}
+                                        />
+
+                {isOwner&& <div className={c.editProfile}><button onClick={activate}>Edit</button></div>}
+
             </div>
-            <div>
-                <span className={c.request}>Looking for a job: </span>
-                <span className={c.response}>{profile?.lookingForAJob? 'yes': 'no'}</span>
-            </div>
-            {profile?.lookingForAJob && <div>
-                <span className={c.request}>My skills: </span>
-                <span className={c.response}>{profile.lookingForAJobDescription}</span>
-            </div>}
-            <div className={c.contacts}>
-                Contacts:
+
+            <div className={c.description}>
+                <div>
+                    <span className={c.request}>About me: </span>
+                    <span className={c.response}>{profile?.aboutMe}</span>
+                </div>
+                <div>
+                    <span className={c.request}>Looking for a job: </span>
+                    <span className={c.response}>{profile?.lookingForAJob? 'yes': 'no'}</span>
+                </div>
+                {profile?.lookingForAJob && <div>
+                    <span className={c.request}>My skills: </span>
+                    <span className={c.response}>{profile.lookingForAJobDescription}</span>
+                </div>}
+
+                <h2 className={c.title}>Contacts:</h2>
                 {/*{Object.keys(profile?.contacts!).map((m:string)=>{*/}
                 {/*    return <Contacts key={m} contactTitle={m} contactValue={profile?.contacts[m]}/>*/}
                 {/*})}*/}
@@ -61,9 +74,9 @@ export const ProfileInformation:FC<ProfileInformationType> = ({profile, isOwner,
                     <span className={c.request}>Main Link: </span>
                     <span className={c.response}>{profile?.contacts.mainLink}</span>
                 </div>
-            </div>
 
-        </>
+            </div>
+        </div>
     );
 };
 

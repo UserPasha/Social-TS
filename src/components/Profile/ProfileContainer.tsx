@@ -56,7 +56,8 @@ const ProfileContainer = (props: ProfilePropsType) => {
                  updateStatus={props.updateStatus}
                  saveAvatar={props.saveAvatar}
                  saveProfile={props.saveProfile}
-                 isOwner={!id}/>
+                 isOwner={!id}
+        />
     );
 };
 

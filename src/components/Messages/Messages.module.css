@@ -20,3 +20,16 @@
 .form{
     margin: 20px 0 0 20px
 }
+.postsContainerWrapper{
+    margin: 20px auto;
+    width: 700px;
+    min-height: 300px;
+    padding: 20px;
+    border: 1px solid #6b5858;
+    border-radius: 20px;
+    box-shadow:  -5px -5px 12px #6b5858;
+}
+.sendPost{
+    border-top: 2px solid #6b5858;
+    margin-top: 10px;
+}

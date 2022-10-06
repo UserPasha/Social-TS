@@ -3,9 +3,11 @@
     height: 500px;
     margin: 0 auto;
 }
+
 .bGImage img {
     max-width: 800px;
 }
+
 .cover {
     margin-left: 20px;
 }
@@ -14,7 +16,12 @@
     max-width: 300px;
 }
 
+.nameWrapper {
+    text-align: center;
+}
+
 .name {
     font-size: 30px;
     font-weight: bolder;
+
 }
